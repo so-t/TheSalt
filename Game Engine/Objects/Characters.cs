@@ -6,7 +6,7 @@ public class Character : SaltGameObject
 {
     // Private Variables
     private bool _isALive;
-    private Weapon _weapon = new Weapon(UNARMED);
+    private Weapon _weapon = new Weapon(Weapons.UNARMED);
 
     // Public Variables
     public void Defend(int damage)

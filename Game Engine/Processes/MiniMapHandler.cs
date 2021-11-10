@@ -37,10 +37,10 @@ public class MiniMapHandler : MonoBehaviour
                     } else {
                         if(
                             map.GetRoom((x-1)/2, y/2) != null 
-                            && map.GetRoom((x-1)/2, y/2).GetConnection(EAST) != null 
-                            && (map.GetRoom((x-1)/2, y/2).GetVisited() || map.GetRoom((x-1)/2, y/2).GetConnection(EAST).GetVisited())
+                            && map.GetRoom((x-1)/2, y/2).GetConnection(Directions.EAST) != null 
+                            && (map.GetRoom((x-1)/2, y/2).GetVisited() || map.GetRoom((x-1)/2, y/2).GetConnection(Directions.EAST).GetVisited())
                             && (map.GetRoom((x-1)/2, y/2).GetDiscovered() || map.GetRoom((x-1)/2, y/2).GetVisited()) 
-                            && (map.GetRoom((x-1)/2, y/2).GetConnection(EAST).GetDiscovered() || map.GetRoom((x-1)/2, y/2).GetConnection(EAST).GetVisited())){
+                            && (map.GetRoom((x-1)/2, y/2).GetConnection(Directions.EAST).GetDiscovered() || map.GetRoom((x-1)/2, y/2).GetConnection(Directions.EAST).GetVisited())){
                             _display.text += "-";
                         } else {
                             _display.text += " ";
@@ -50,10 +50,10 @@ public class MiniMapHandler : MonoBehaviour
             } else if (y != 0 && y != MAP_HEIGHT*2-1){
                 for(int x = 0; x <= MAP_WIDTH-1; x++){
                     if(map.GetRoom(x, (y-1)/2) != null 
-                       && map.GetRoom(x, (y-1)/2).GetConnection(NORTH) != null
-                       && (map.GetRoom(x, (y-1)/2).GetVisited() || map.GetRoom(x, (y-1)/2).GetConnection(NORTH).GetVisited())
+                       && map.GetRoom(x, (y-1)/2).GetConnection(Directions.NORTH) != null
+                       && (map.GetRoom(x, (y-1)/2).GetVisited() || map.GetRoom(x, (y-1)/2).GetConnection(Directions.NORTH).GetVisited())
                        && (map.GetRoom(x, (y-1)/2).GetDiscovered() || map.GetRoom(x, (y-1)/2).GetVisited()) 
-                       && (map.GetRoom(x, (y-1)/2).GetConnection(NORTH).GetDiscovered() || map.GetRoom(x, (y-1)/2).GetConnection(NORTH).GetVisited())){
+                       && (map.GetRoom(x, (y-1)/2).GetConnection(Directions.NORTH).GetDiscovered() || map.GetRoom(x, (y-1)/2).GetConnection(Directions.NORTH).GetVisited())){
                         _display.text += "| ";
                     } else {
                         _display.text += "  ";

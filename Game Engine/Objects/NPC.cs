@@ -19,7 +19,7 @@ public class NPC : Character
     
     public NPC()
     {
-        _origin = Rand.Next(0, ORIGIN_ARRAY_LENGTH);
+        _origin = Rand.Next(0, Arrays.ORIGIN_ARRAY_LENGTH);
         var chain = new MarkovChain<char>(3);
         foreach (var name in names)
         {
@@ -33,48 +33,45 @@ public class NPC : Character
         n[0] = Char.ToUpper(n[0]);
         SetName(new string(n));
         _gender = Rand.Next(0, GENDER_ARRAY_LENGTH);
+        SetPronouns(new PronounSet(_gender));
         SetHealth(10);
         SetIsAlive(true);
         
         _hasTattoo = Rand.Next(0, 101) <= 35;
-        if (_hasTattoo) _tattooLocation = Rand.Next(0, TATTOO_LOCATION_ARRAY_LENGTH);
+        if (_hasTattoo) _tattooLocation = Rand.Next(0, Arrays.TATTOO_LOCATION_ARRAY_LENGTH);
         
         _hasGear = Rand.Next(0, 101) <= 33;
-        _gear = Rand.Next(0, ITEM_ARRAY_LENGTH);
-        _gearLocation = Rand.Next(0, ITEM_LOCATION_ARRAY_LENGTH);
+        _gear = Rand.Next(0, Arrays.ITEM_ARRAY_LENGTH);
+        _gearLocation = Rand.Next(0, Arrays.ITEM_LOCATION_ARRAY_LENGTH);
         
-        SetWeapon(_gear < 4 ? new Weapon(_gear) : new Weapon(UNARMED));
+        SetWeapon(_gear < 4 ? new Weapon(_gear) : new Weapon(Weapons.UNARMED));
         
         
         
-        var description = pronouns[_gender, SUBJECTIVE_UPPER] +
-                          (_gender == THEY_THEM ? " appear" : " appears") + " to be from " +
-                          origins[_origin] + ".";
+        var description = Touppder(GetThirdPersonSubjective()[0]) + GetThirdPersonSubjective().substring(1)
+                          + pronouns[_gender, SUBJECTIVE_UPPER] +
+                          + (_gender == Genders.EPICENE ? " appear" : " appears") + " to be from " 
+                          + origins[_origin] 
+                          + ".";
         if (_hasTattoo)
             description += " " 
-                           + pronouns[_gender, SUBJECTIVE_UPPER] 
+                           + Touppder(GetThirdPersonSubjective()[0]) + GetThirdPersonSubjective().substring(1) 
                            + (_gender == THEY_THEM ? " have" : " has") 
                            + (_tattooLocation < PLURL_TATTOO_CUTOFF ? " a tattoo" : " tattoos") 
                            + " on " 
-                           + (_gender == SHE_HER
-                               ? pronouns[_gender, OBJECTIVE]
-                               : pronouns[_gender, POSSESSIVE]) 
+                           + GetThirdPersonDependentPosessive()
                            + " " 
                            + tattooLocations[_tattooLocation] 
                            + ".";
 
         if (_hasGear)
             description += " "
-                           + pronouns[_gender, SUBJECTIVE_UPPER]
+                           + Touppder(GetThirdPersonSubjective()[0]) + GetThirdPersonSubjective().substring(1)
                            + (_gender == THEY_THEM ? " carry a " : " carries a ")
                            + items[_gear]
-                           + (_gearLocation == BACKSTRAP ? 
-                               " strapped to " + (_gender == SHE_HER ? 
-                                   pronouns[_gender, OBJECTIVE] 
-                                   : pronouns[_gender, POSSESSIVE]) + " " + itemLocations[_gearLocation] 
-                               : " in " + (_gender == SHE_HER ? 
-                                   pronouns[_gender, OBJECTIVE] 
-                                   : pronouns[_gender, POSSESSIVE]) + " " + itemLocations[_gearLocation])
+                           + (_gearLocation == EqipmentSlots.BACKSTRAP ? 
+                               " strapped to " + GetThirdPersonDependentPosessive() + " " + itemLocations[_gearLocation] 
+                               : " in " + GetThirdPersonDependentPosessive() + " " + itemLocations[_gearLocation])
                            + ".";
             
         SetDescription(description);

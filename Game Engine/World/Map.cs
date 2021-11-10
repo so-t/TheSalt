@@ -3,7 +3,7 @@
 public class Map
 {
     // Private variables
-    private Room[,] _rooms  = new Room[MAP_WIDTH,MAP_HEIGHT];
+    private Room[,] _rooms  = new Room[Maps.MAP_WIDTH,Maps.MAP_HEIGHT];
     private int _roomCount;
 
     // Public variables

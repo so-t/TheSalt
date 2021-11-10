@@ -28,49 +28,49 @@ public class WorldBuilder
 
            // Create connections between target room and neighbors
            // This process loops until at least one connection is made between this room and it's neighbors
-           while(map.GetRoom(x,y).GetConnectionCount() <= 4 && probabilityMod <= 120 - ROOM_CONNECTION_PROBABILITY_BASELINE){
-               if(y+1 < MAP_HEIGHT && map.GetRoom(x,y+1) != null && !map.GetRoom(x,y).HasConnection(NORTH)){
-                   if(x == MAP_WIDTH/2-1 && y+1 == MAP_HEIGHT/2-1){
+           while(map.GetRoom(x,y).GetConnectionCount() <= 4 && probabilityMod <= 120 - Maps.ROOM_CONNECTION_PROBABILITY_BASELINE){
+               if(y+1 < Maps.MAP_HEIGHT && map.GetRoom(x,y+1) != null && !map.GetRoom(x,y).HasConnection(Directions.NORTH)){
+                   if(x == Maps.MAP_WIDTH/2-1 && y+1 == Maps.MAP_HEIGHT/2-1){
                        if(map.GetRoom(x, y+1).GetConnectionCount() == 0){
-                           map.GetRoom(x, y).SetConnection(NORTH, map.GetRoom(x, y+1));
-                           map.GetRoom(x, y+1).SetConnection(SOUTH, map.GetRoom(x,y));
+                           map.GetRoom(x, y).SetConnection(Directions.NORTH, map.GetRoom(x, y+1));
+                           map.GetRoom(x, y+1).SetConnection(Directions.SOUTH, map.GetRoom(x,y));
                        }
-                   } else if(Rand.Next(0,101) - probabilityMod < ROOM_CONNECTION_PROBABILITY_BASELINE){
-                       map.GetRoom(x, y).SetConnection(NORTH, map.GetRoom(x, y+1));
-                       map.GetRoom(x, y+1).SetConnection(SOUTH, map.GetRoom(x, y));
+                   } else if(Rand.Next(0,101) - probabilityMod < Maps.ROOM_CONNECTION_PROBABILITY_BASELINE){
+                       map.GetRoom(x, y).SetConnection(Directions.NORTH, map.GetRoom(x, y+1));
+                       map.GetRoom(x, y+1).SetConnection(Directions.SOUTH, map.GetRoom(x, y));
                    }
                }
-               if(x+1 < MAP_WIDTH && map.GetRoom(x+1, y) != null  && !map.GetRoom(x,y).HasConnection(EAST)){
-                   if(x+1 == MAP_WIDTH/2-1 && y == MAP_HEIGHT/2-1){
+               if(x+1 < MAP_WIDTH && map.GetRoom(x+1, y) != null  && !map.GetRoom(x,y).HasConnection(Directions.EAST)){
+                   if(x+1 == Maps.MAP_WIDTH/2-1 && y == Maps.MAP_HEIGHT/2-1){
                        if(map.GetRoom(x+1, y).GetConnectionCount() == 0){
-                           map.GetRoom(x, y).SetConnection(EAST, map.GetRoom(x+1, y));
-                           map.GetRoom(x+1, y).SetConnection(WEST, map.GetRoom(x, y));
+                           map.GetRoom(x, y).SetConnection(Directions.EAST, map.GetRoom(x+1, y));
+                           map.GetRoom(x+1, y).SetConnection(Directions.WEST, map.GetRoom(x, y));
                        }
-                   } else if(Rand.Next(0,101) - probabilityMod < ROOM_CONNECTION_PROBABILITY_BASELINE){
-                       map.GetRoom(x, y).SetConnection(EAST, map.GetRoom(x+1, y));
-                       map.GetRoom(x+1, y).SetConnection(WEST, map.GetRoom(x, y));
+                   } else if(Rand.Next(0,101) - probabilityMod < Maps.ROOM_CONNECTION_PROBABILITY_BASELINE){
+                       map.GetRoom(x, y).SetConnection(Directions.EAST, map.GetRoom(x+1, y));
+                       map.GetRoom(x+1, y).SetConnection(Directions.WEST, map.GetRoom(x, y));
                    }
                }
-               if(y-1 >= 0 && map.GetRoom(x, y-1) != null && !map.GetRoom(x,y).HasConnection(SOUTH)){
-                   if(x == MAP_WIDTH/2-1 && y-1 == MAP_HEIGHT/2-1){
+               if(y-1 >= 0 && map.GetRoom(x, y-1) != null && !map.GetRoom(x,y).HasConnection(Directions.SOUTH)){
+                   if(x == Maps.MAP_WIDTH/2-1 && y-1 == Maps.MAP_HEIGHT/2-1){
                        if(map.GetRoom(x, y-1).GetConnectionCount() == 0){
-                           map.GetRoom(x, y).SetConnection(SOUTH, map.GetRoom(x, y-1));
-                           map.GetRoom(x, y-1).SetConnection(NORTH, map.GetRoom(x, y));
+                           map.GetRoom(x, y).SetConnection(Directions.SOUTH, map.GetRoom(x, y-1));
+                           map.GetRoom(x, y-1).SetConnection(Directions.NORTH, map.GetRoom(x, y));
                        }
-                   } else if(Rand.Next(0,101) - probabilityMod < ROOM_CONNECTION_PROBABILITY_BASELINE){
-                       map.GetRoom(x, y).SetConnection(SOUTH, map.GetRoom(x, y-1));
-                       map.GetRoom(x, y-1).SetConnection(NORTH, map.GetRoom(x, y));
+                   } else if(Rand.Next(0,101) - probabilityMod < Maps.ROOM_CONNECTION_PROBABILITY_BASELINE){
+                       map.GetRoom(x, y).SetConnection(Directions.SOUTH, map.GetRoom(x, y-1));
+                       map.GetRoom(x, y-1).SetConnection(Directions.NORTH, map.GetRoom(x, y));
                    }
                }
-               if(x-1 >= 0 && map.GetRoom(x-1, y) != null && !map.GetRoom(x,y).HasConnection(WEST)){
-                   if(x-1 == MAP_WIDTH/2-1 && y == MAP_HEIGHT/2-1){
+               if(x-1 >= 0 && map.GetRoom(x-1, y) != null && !map.GetRoom(x,y).HasConnection(Directions.WEST)){
+                   if(x-1 == Maps.MAP_WIDTH/2-1 && y == Maps.MAP_HEIGHT/2-1){
                        if(map.GetRoom(x-1, y).GetConnectionCount() == 0){
-                           map.GetRoom(x, y).SetConnection(WEST, map.GetRoom(x-1, y));
-                           map.GetRoom(x-1, y).SetConnection(EAST, map.GetRoom(x, y));
+                           map.GetRoom(x, y).SetConnection(Directions.WEST, map.GetRoom(x-1, y));
+                           map.GetRoom(x-1, y).SetConnection(Directions.EAST, map.GetRoom(x, y));
                        }
-                   } else if(Rand.Next(0,101) - probabilityMod < ROOM_CONNECTION_PROBABILITY_BASELINE){
-                       map.GetRoom(x, y).SetConnection(WEST, map.GetRoom(x-1, y));
-                       map.GetRoom(x-1, y).SetConnection(EAST, map.GetRoom(x, y));
+                   } else if(Rand.Next(0,101) - probabilityMod < Maps.ROOM_CONNECTION_PROBABILITY_BASELINE){
+                       map.GetRoom(x, y).SetConnection(Directions.WEST, map.GetRoom(x-1, y));
+                       map.GetRoom(x-1, y).SetConnection(Directions.EAST, map.GetRoom(x, y));
                    }
                }
                probabilityMod += 1;
@@ -82,44 +82,44 @@ public class WorldBuilder
            // Generate neighbor rooms
            // neighborCount is used to keep track of how many neighboring rooms are generated over the life of this method
            int neighborCount = 0;
-           while(neighborCount <= 4 && map.GetRoomCount() < MAX_ROOM_COUNT && probabilityMod <= 100 - ROOM_CREATION_PROBABILITY_BASELINE){
+           while(neighborCount <= 4 && map.GetRoomCount() < Maps.MAX_ROOM_COUNT && probabilityMod <= 100 - Maps.ROOM_CREATION_PROBABILITY_BASELINE){
                switch(Rand.Next(0,4)){
-                   case NORTH:
-                       if(y+1 < MAP_HEIGHT){
-                           if(map.GetRoom(x, y+1) == null && Rand.Next(0,101) - probabilityMod < ROOM_CREATION_PROBABILITY_BASELINE){
+                   case Directions.NORTH:
+                       if(y+1 < Maps.MAP_HEIGHT){
+                           if(map.GetRoom(x, y+1) == null && Rand.Next(0,101) - probabilityMod < Maps.ROOM_CREATION_PROBABILITY_BASELINE){
                                GenerateRoom(map, x, y+1);
-                               map.GetRoom(x, y).SetConnection(NORTH, map.GetRoom(x, y+1));
-                               map.GetRoom(x, y+1).SetConnection(SOUTH, map.GetRoom(x, y));
+                               map.GetRoom(x, y).SetConnection(Directions.NORTH, map.GetRoom(x, y+1));
+                               map.GetRoom(x, y+1).SetConnection(Directions.SOUTH, map.GetRoom(x, y));
                                neighborCount++;
                            }
                        }
                        break;
-                   case EAST:
-                       if(x+1 < MAP_WIDTH){
-                           if(map.GetRoom(x+1, y) == null && Rand.Next(0,101) - probabilityMod < ROOM_CREATION_PROBABILITY_BASELINE){
+                   case Directions.EAST:
+                       if(x+1 < Maps.MAP_WIDTH){
+                           if(map.GetRoom(x+1, y) == null && Rand.Next(0,101) - probabilityMod < Maps.ROOM_CREATION_PROBABILITY_BASELINE){
                                GenerateRoom(map, x+1, y);
-                               map.GetRoom(x, y).SetConnection(EAST, map.GetRoom(x+1, y));
-                               map.GetRoom(x+1, y).SetConnection(WEST, map.GetRoom(x, y));
+                               map.GetRoom(x, y).SetConnection(Directions.EAST, map.GetRoom(x+1, y));
+                               map.GetRoom(x+1, y).SetConnection(Directions.WEST, map.GetRoom(x, y));
                                neighborCount++;
                            }
                        }
                        break;
-                   case SOUTH:
+                   case Directions.SOUTH:
                        if(y-1 >= 0){
-                           if(map.GetRoom(x, y-1) == null && Rand.Next(0,101) - probabilityMod < ROOM_CREATION_PROBABILITY_BASELINE){
+                           if(map.GetRoom(x, y-1) == null && Rand.Next(0,101) - probabilityMod < Maps.ROOM_CREATION_PROBABILITY_BASELINE){
                                GenerateRoom(map, x, y-1);
-                               map.GetRoom(x, y).SetConnection(SOUTH, map.GetRoom(x, y-1));
-                               map.GetRoom(x, y-1).SetConnection(NORTH, map.GetRoom(x, y));
+                               map.GetRoom(x, y).SetConnection(Directions.SOUTH, map.GetRoom(x, y-1));
+                               map.GetRoom(x, y-1).SetConnection(Directions.NORTH, map.GetRoom(x, y));
                                neighborCount++;
                            }
                        }
                        break;
-                   case WEST:
+                   case Directions.WEST:
                        if(x-1 >= 0){
-                           if(map.GetRoom(x-1, y) == null && Rand.Next(0,101) - probabilityMod < ROOM_CREATION_PROBABILITY_BASELINE){
+                           if(map.GetRoom(x-1, y) == null && Rand.Next(0,101) - probabilityMod < Maps.ROOM_CREATION_PROBABILITY_BASELINE){
                                GenerateRoom(map, x-1, y);
-                               map.GetRoom(x, y).SetConnection(WEST, map.GetRoom(x-1, y));
-                               map.GetRoom(x-1, y).SetConnection(EAST, map.GetRoom(x, y));
+                               map.GetRoom(x, y).SetConnection(Directions.WEST, map.GetRoom(x-1, y));
+                               map.GetRoom(x-1, y).SetConnection(Directions.EAST, map.GetRoom(x, y));
                                neighborCount++;
                            }
                        }
@@ -139,7 +139,7 @@ public class WorldBuilder
            {
                room = toVisit.Dequeue();
                room.SetVisited(true);
-               for (int dir = NORTH; dir < 4; dir++)
+               for (int dir = Directions.NORTH; dir < 4; dir++)
                {
                    if (room.HasConnection(dir) && !room.GetConnection(dir).GetVisited())
                    {
@@ -153,16 +153,16 @@ public class WorldBuilder
        
        public Map[] CreateMap()
        {
-           Map[] maps = new Map[MAX_FLOOR_COUNT];
+           Map[] maps = new Map[Maps.MAX_FLOOR_COUNT];
            var floorCount = 0;
            var x = MAP_WIDTH / 2 - 1;
            var y = MAP_HEIGHT / 2 - 1;
-           while(floorCount < MAX_FLOOR_COUNT)
+           while(floorCount < Maps.MAX_FLOOR_COUNT)
            {
                MonoBehaviour.print(floorCount);
                maps[floorCount] = new Map();
                
-               while (maps[floorCount].GetRoomCount() < MAX_ROOM_COUNT)
+               while (maps[floorCount].GetRoomCount() < Maps.MAX_ROOM_COUNT)
                {
                    GenerateRoom(maps[floorCount], x, y);
                }
@@ -170,8 +170,8 @@ public class WorldBuilder
                if (floorCount > 0) 
                {
                    maps[floorCount].GetRoom(x,y).SetRoomType(new Staircase(maps[floorCount].GetRoom(x,y)));
-                   maps[floorCount-1].GetRoom(x,y).SetConnection(DOWN, maps[floorCount].GetRoom(x,y));
-                   maps[floorCount].GetRoom(x,y).SetConnection(UP, maps[floorCount-1].GetRoom(x,y));
+                   maps[floorCount-1].GetRoom(x,y).SetConnection(Directions.DOWN, maps[floorCount].GetRoom(x,y));
+                   maps[floorCount].GetRoom(x,y).SetConnection(Directions.UP, maps[floorCount-1].GetRoom(x,y));
                }
                
                if (floorCount < MAX_FLOOR_COUNT-1)
@@ -195,9 +195,9 @@ public class WorldBuilder
                room.NPCs = room.GetRoomType().NPCs;
            });
 
-           CurrentRoom = maps[0].GetRoom(MAP_WIDTH / 2 - 1, MAP_HEIGHT / 2 - 1);
+           CurrentRoom = maps[0].GetRoom(Maps.MAP_WIDTH / 2 - 1, Maps.MAP_HEIGHT / 2 - 1);
            CurrentRoom.SetVisited(true);
-           for (int dir = NORTH; dir < 5; dir++)
+           for (int dir = Directions.NORTH; dir < 5; dir++)
            {
                if (CurrentRoom.GetConnection(dir) != null)
                {

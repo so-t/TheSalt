@@ -11,20 +11,20 @@ public class Weapon
     {
         switch (type)
         {
-            case QUARTERSTAFF:
-                _damage = QUARTERSTAFF_DAMAGE;
+            case Weapons.QUARTERSTAFF:
+                _damage = WeaponDamages.QUARTERSTAFF_DAMAGE;
                 break;
-            case SOLDIERS_SPEAR:
-                _damage = SOLDIERS_SPEAR_DAMAGE;
+            case Weapons.SOLDIERS_SPEAR:
+                _damage = WeaponDamages.SOLDIERS_SPEAR_DAMAGE;
                 break;
-            case WOODCUTTING_AXE:
-                _damage = WOODCUTTING_AXE_DAMAGE;
+            case Weapons.WOODCUTTING_AXE:
+                _damage = WeaponDamages.WOODCUTTING_AXE_DAMAGE;
                 break;
-            case BLACKSMITHS_HAMMER:
-                _damage = BLACKSMITHS_HAMMER_DAMAGE;
+            case Weapons.BLACKSMITHS_HAMMER:
+                _damage = WeaponDamages.BLACKSMITHS_HAMMER_DAMAGE;
                 break;
-            case UNARMED:
-                _damage = UNARMED_DAMAGE;
+            case Weapons.UNARMED:
+                _damage = WeaponDamages.UNARMED_DAMAGE;
                 break;
         }
     }

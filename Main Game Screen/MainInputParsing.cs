@@ -26,12 +26,12 @@ public class MainInputParsing : MonoBehaviour
     
     void MovePlayer(int direction){
         if(CurrentRoom.HasConnection(direction)){
-            if (direction == DOWN)
+            if (direction == Directions.DOWN)
             {
                 CurrentLevel += 1;
             }
 
-            if (direction == UP)
+            if (direction == Directions.UP)
             {
                 CurrentLevel -= 1;
             }
@@ -39,7 +39,7 @@ public class MainInputParsing : MonoBehaviour
             if (!CurrentRoom.GetVisited())
             {
                 CurrentRoom.SetVisited(true);
-                for (int dir = NORTH; dir < 4; dir++)
+                for (int dir = Directions.NORTH; dir < 4; dir++)
                 {
                     if (CurrentRoom.GetConnection(dir) != null && !CurrentRoom.GetConnection(dir).GetDiscovered())
                     {
@@ -52,7 +52,7 @@ public class MainInputParsing : MonoBehaviour
 
             string title = "---< " + CurrentRoom.GetTitle() + " >";
             GameLog = "<color=#292b30>---<</color> " + CurrentRoom.GetTitle() + " <color=#292b30>>";
-            for (int x = title.Length; x < MAX_CHAR_PER_MAIN_DISPLAY_LINE; x++)
+            for (int x = title.Length; x < Maps.MAX_CHAR_PER_MAIN_DISPLAY_LINE; x++)
             {
                 GameLog += "-";
             }
@@ -132,7 +132,7 @@ public class MainInputParsing : MonoBehaviour
                 foreach (NPC npc in CurrentRoom.NPCs){
                     if(npc.GetName().ToLower() == target){
                         if(npc.GetIsAlive()){
-                            message += "You attack " + npc.GetName() + " for " + Player.Attack(npc) + " points of damage" + (npc.GetIsAlive() ? "!" : ", finishing " + pronouns[npc.GetGender(),OBJECTIVE] + "!");
+                            message += "You attack " + npc.GetName() + " for " + Player.Attack(npc) + " points of damage" + (npc.GetIsAlive() ? "!" : ", finishing " + npc.GetThirdPersonObjective() + "!");
                             attacked = true;
                             if(npc.GetWeapon() != null && npc.GetIsAlive()){
                                 message += "\n" + npc.GetName() + " attacks you for " + npc.Attack(Player) + " points of damage!";

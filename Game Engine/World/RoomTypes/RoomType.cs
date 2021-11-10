@@ -33,23 +33,23 @@ namespace Game_Engine.World.RoomTypes
 
         public void CreateSensoryFeature()
         {
-            _sensoryFeature = sensoryFeatures[Rand.Next(0, SENSORY_FEATURE_ARRAY_LENGTH)];
+            _sensoryFeature = sensoryFeatures[Rand.Next(0, Arrays.SENSORY_FEATURE_ARRAY_LENGTH)];
             Regex scentRegex = new Regex("#scent");
             while (scentRegex.IsMatch(_sensoryFeature))
             {
-                _sensoryFeature = scentRegex.Replace(_sensoryFeature, scents[Rand.Next(0, SCENT_ARRAY_LENGTH)], 1);
+                _sensoryFeature = scentRegex.Replace(_sensoryFeature, scents[Rand.Next(0, Arrays.SCENT_ARRAY_LENGTH)], 1);
             }
 
         }
 
         public void CreatePhysicalFeature()
         {
-            _physicalFeature = physicalFeatures[Rand.Next(0, PHYSICAL_FEATURE_ARRAY_LENGTH)];
+            _physicalFeature = physicalFeatures[Rand.Next(0, Arrays.PHYSICAL_FEATURE_ARRAY_LENGTH)];
             Regex materialRegex = new Regex("#material");
             Regex colorRegex = new Regex("#color");
             while (materialRegex.IsMatch(_physicalFeature))
             {
-                string material = materials[Rand.Next(0, MATERIALS_ARRAY_LENGTH)];
+                string material = materials[Rand.Next(0, Arrays.MATERIALS_ARRAY_LENGTH)];
                 _physicalFeature = materialRegex.Replace(_physicalFeature, material, 1);
             }
             while (colorRegex.IsMatch(_physicalFeature))

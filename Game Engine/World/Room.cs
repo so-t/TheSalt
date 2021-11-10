@@ -54,17 +54,17 @@ public class Room
     public bool HasConnection(int direction){
         switch (direction)
         {
-            case NORTH:
+            case Directions.NORTH:
                 return _north != null;
-            case SOUTH:
+            case Directions.SOUTH:
                 return _south != null;
-            case EAST:
+            case Directions.EAST:
                 return _east != null;
-            case WEST:
+            case Directions.WEST:
                 return _west != null;
-            case UP:
+            case Directions.UP:
                 return _up != null;
-            case DOWN:
+            case Directions.DOWN:
                 return _down != null;
         }
 
@@ -75,26 +75,26 @@ public class Room
         if (GetConnection(direction) == null) {
             switch (direction)
             {
-                case NORTH:
+                case Directions.NORTH:
                     _north = room;
                     _connectionCount += 1;
                     break;
-                case SOUTH:
+                case Directions.SOUTH:
                     _south = room;
                     _connectionCount += 1;
                     break;
-                case EAST:
+                case Directions.EAST:
                     _east = room;
                     _connectionCount += 1;
                     break;
-                case WEST:
+                case Directions.WEST:
                     _west = room;
                     _connectionCount += 1;
                     break;
-                case UP:
+                case Directions.UP:
                     _up = room;
                     break;
-                case DOWN:
+                case Directions.DOWN:
                     _down = room;
                     break;
             }
@@ -104,17 +104,17 @@ public class Room
     public Room GetConnection(int direction){
         switch (direction)
         {
-            case NORTH:
+            case Directions.NORTH:
                 return _north;
-            case SOUTH:
+            case Directions.SOUTH:
                 return _south;
-            case EAST:
+            case Directions.EAST:
                 return _east;
-            case WEST:
+            case Directions.WEST:
                 return _west;
-            case UP:
+            case Directions.UP:
                 return _up;
-            case DOWN:
+            case Directions.DOWN:
                 return _down;
         }
 
@@ -156,13 +156,13 @@ public class Room
         if(GetConnectionCount() > 0){
             if(GetConnectionCount() == 1){
                 retVal += "\nThere is an exit to the ";
-                if(HasConnection(NORTH)){
+                if(HasConnection(Directions.NORTH)){
                     retVal += "<color=#292b30><b>North</color></b>.";
-                } else if (HasConnection(EAST)){
+                } else if (HasConnection(Directions.EAST)){
                     retVal += "<color=#292b30><b>East</color></b>.";
-                } else if (HasConnection(SOUTH)){
+                } else if (HasConnection(Directions.SOUTH)){
                     retVal += "<color=#292b30><b>South</color></b>.";
-                } else if (HasConnection(WEST)){
+                } else if (HasConnection(Directions.WEST)){
                     retVal += "<color=#292b30><b>West</color></b>.";
                 }
             } else {
@@ -170,23 +170,23 @@ public class Room
                 int count = 0;
                 for (int i = 0; i < MAX_HORIZONTAL_CONNECTION_COUNT; i++){
                     if(count == GetConnectionCount()-1 && HasConnection(i)){
-                        if(i == NORTH){
+                        if(i == Directions.NORTH){
                             retVal += "and <color=#292b30><b>North</color></b>.";
-                        } else if(i == EAST){
+                        } else if(i == Directions.EAST){
                             retVal += "and <color=#292b30><b>East</color></b>.";
-                        } else if(i == SOUTH){
+                        } else if(i == Directions.SOUTH){
                             retVal += "and <color=#292b30><b>South</color></b>.";
-                        } else if(i == WEST){
+                        } else if(i == Directions.WEST){
                             retVal += "and <color=#292b30><b>West</color></b>. ";
                         }
                     } else if(count < GetConnectionCount()-1 && HasConnection(i)){
-                        if(i == NORTH){
+                        if(i == Directions.NORTH){
                             retVal += "<color=#292b30><b>North</color></b>, ";
-                        } else if(i == EAST){
+                        } else if(i == Directions.EAST){
                             retVal += "<color=#292b30><b>East</color></b>, ";
-                        } else if(i == SOUTH){
+                        } else if(i == Directions.SOUTH){
                             retVal += "<color=#292b30><b>South</color></b>, ";
-                        } else if(i == WEST){
+                        } else if(i == Directions.WEST){
                             retVal += "<color=#292b30><b>West</color></b>, ";
                         }
                         count++;
@@ -194,7 +194,7 @@ public class Room
                 }
             }
         }
-        if(HasConnection(DOWN) || HasConnection(UP)) retVal += "\nThere is a <color=#292b30>staircase</color> leading " + (HasConnection(DOWN) ? "<color=#292b30>further below</color>.": "<color=#292b30>up</color>.") ;
+        if(HasConnection(Directions.DOWN) || HasConnection(Directions.UP)) retVal += "\nThere is a <color=#292b30>staircase</color> leading " + (HasConnection(Directions.DOWN) ? "<color=#292b30>further below</color>.": "<color=#292b30>up</color>.") ;
 
         foreach (NPC npc in NPCs)
         {
