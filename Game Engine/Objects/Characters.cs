@@ -1,12 +1,10 @@
 ﻿using static GlobalVariables;
-using static Constants;
-
 
 public class Character : SaltGameObject
 {
     // Private Variables
     private bool _isALive;
-    private Weapon _weapon = new Weapon(Weapons.UNARMED);
+    private Weapon _weapon = new Weapon((int) Weapons.UNARMED);
 
     // Public Variables
     public void Defend(int damage)

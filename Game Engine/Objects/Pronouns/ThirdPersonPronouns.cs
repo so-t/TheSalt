@@ -1,4 +1,5 @@
-﻿using static Constants;
+﻿using System;
+
 public class ThirdPersonPronouns
 {
     private readonly string 
@@ -15,27 +16,27 @@ public class ThirdPersonPronouns
     {
         switch (gender)
         {
-            case Genders.MASCULINE:
+            case (int) Genders.MASCULINE:
                 _subjective = "he";
                 _objective = "him";
                 _dependentPossessive = "his";
                 _independentPossessive = "his";
                 _reflexive = "himself";
                 break;
-            case Genders.FEMININE:
+            case (int) Genders.FEMININE:
                 _subjective = "she";
                 _objective = _dependentPossessive = "her";
                 _independentPossessive = "hers";
                 _reflexive = "herself";
                 break;
-            case Genders.EPICENE:
+            case (int) Genders.EPICENE:
                 _subjective = "they";
                 _objective = "them";
                 _dependentPossessive = "their";
                 _independentPossessive = "theirs";
                 _reflexive = "themself";
                 break;
-            case Genders.NEUTER:
+            case (int) Genders.NEUTER:
                 _subjective = _objective = "it";
                 _dependentPossessive = _independentPossessive = "its";
                 _reflexive = "itself";

@@ -1,8 +1,6 @@
 ﻿using System;
 using Start_Screen;
-using UnityEngine.UI;
 using static GlobalVariables;
-using static Constants;
 [CLSCompliant(false)]
 
 public class ChoosingLocation : State{

@@ -1,7 +1,6 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
-using static Constants;
 using static GlobalVariables;
 [CLSCompliant(false)]
 
@@ -14,9 +13,9 @@ public class MiniMapHandler : MonoBehaviour
     {
         _display.text = "";
 
-        for(int y = MAP_HEIGHT*2-2; y >= 0; y--){
+        for(int y = (int) Maps.MAP_HEIGHT*2-2; y >= 0; y--){
             if(y % 2 == 0){
-                for(int x = 0; x < MAP_WIDTH*2-1; x++){
+                for(int x = 0; x < (int) Maps.MAP_WIDTH*2-1; x++){
                     if(x % 2 == 0){
                         if(map.GetRoom(x/2, y/2) == null){
                             _display.text += " ";
@@ -37,23 +36,23 @@ public class MiniMapHandler : MonoBehaviour
                     } else {
                         if(
                             map.GetRoom((x-1)/2, y/2) != null 
-                            && map.GetRoom((x-1)/2, y/2).GetConnection(Directions.EAST) != null 
-                            && (map.GetRoom((x-1)/2, y/2).GetVisited() || map.GetRoom((x-1)/2, y/2).GetConnection(Directions.EAST).GetVisited())
+                            && map.GetRoom((x-1)/2, y/2).GetConnection((int) Directions.EAST) != null 
+                            && (map.GetRoom((x-1)/2, y/2).GetVisited() || map.GetRoom((x-1)/2, y/2).GetConnection((int) Directions.EAST).GetVisited())
                             && (map.GetRoom((x-1)/2, y/2).GetDiscovered() || map.GetRoom((x-1)/2, y/2).GetVisited()) 
-                            && (map.GetRoom((x-1)/2, y/2).GetConnection(Directions.EAST).GetDiscovered() || map.GetRoom((x-1)/2, y/2).GetConnection(Directions.EAST).GetVisited())){
+                            && (map.GetRoom((x-1)/2, y/2).GetConnection((int) Directions.EAST).GetDiscovered() || map.GetRoom((x-1)/2, y/2).GetConnection((int) Directions.EAST).GetVisited())){
                             _display.text += "-";
                         } else {
                             _display.text += " ";
                         }
                     }
                 }
-            } else if (y != 0 && y != MAP_HEIGHT*2-1){
-                for(int x = 0; x <= MAP_WIDTH-1; x++){
+            } else if (y != 0 && y != (int) Maps.MAP_HEIGHT*2-1){
+                for(int x = 0; x <= (int) Maps.MAP_WIDTH-1; x++){
                     if(map.GetRoom(x, (y-1)/2) != null 
-                       && map.GetRoom(x, (y-1)/2).GetConnection(Directions.NORTH) != null
-                       && (map.GetRoom(x, (y-1)/2).GetVisited() || map.GetRoom(x, (y-1)/2).GetConnection(Directions.NORTH).GetVisited())
+                       && map.GetRoom(x, (y-1)/2).GetConnection((int) Directions.NORTH) != null
+                       && (map.GetRoom(x, (y-1)/2).GetVisited() || map.GetRoom(x, (y-1)/2).GetConnection((int) Directions.NORTH).GetVisited())
                        && (map.GetRoom(x, (y-1)/2).GetDiscovered() || map.GetRoom(x, (y-1)/2).GetVisited()) 
-                       && (map.GetRoom(x, (y-1)/2).GetConnection(Directions.NORTH).GetDiscovered() || map.GetRoom(x, (y-1)/2).GetConnection(Directions.NORTH).GetVisited())){
+                       && (map.GetRoom(x, (y-1)/2).GetConnection((int) Directions.NORTH).GetDiscovered() || map.GetRoom(x, (y-1)/2).GetConnection((int) Directions.NORTH).GetVisited())){
                         _display.text += "| ";
                     } else {
                         _display.text += "  ";

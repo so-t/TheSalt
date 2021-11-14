@@ -1,9 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Game_Engine.World.RoomTypes;
-using UnityEngine;
-using static Constants;
-using static GlobalVariables;
 
 public class Room
 {
@@ -54,17 +50,17 @@ public class Room
     public bool HasConnection(int direction){
         switch (direction)
         {
-            case Directions.NORTH:
+            case (int) Directions.NORTH:
                 return _north != null;
-            case Directions.SOUTH:
+            case (int) Directions.SOUTH:
                 return _south != null;
-            case Directions.EAST:
+            case (int) Directions.EAST:
                 return _east != null;
-            case Directions.WEST:
+            case (int) Directions.WEST:
                 return _west != null;
-            case Directions.UP:
+            case (int) Directions.UP:
                 return _up != null;
-            case Directions.DOWN:
+            case (int) Directions.DOWN:
                 return _down != null;
         }
 
@@ -75,26 +71,26 @@ public class Room
         if (GetConnection(direction) == null) {
             switch (direction)
             {
-                case Directions.NORTH:
+                case (int) Directions.NORTH:
                     _north = room;
                     _connectionCount += 1;
                     break;
-                case Directions.SOUTH:
+                case (int) Directions.SOUTH:
                     _south = room;
                     _connectionCount += 1;
                     break;
-                case Directions.EAST:
+                case (int) Directions.EAST:
                     _east = room;
                     _connectionCount += 1;
                     break;
-                case Directions.WEST:
+                case (int) Directions.WEST:
                     _west = room;
                     _connectionCount += 1;
                     break;
-                case Directions.UP:
+                case (int) Directions.UP:
                     _up = room;
                     break;
-                case Directions.DOWN:
+                case (int) Directions.DOWN:
                     _down = room;
                     break;
             }
@@ -104,17 +100,17 @@ public class Room
     public Room GetConnection(int direction){
         switch (direction)
         {
-            case Directions.NORTH:
+            case (int) Directions.NORTH:
                 return _north;
-            case Directions.SOUTH:
+            case (int) Directions.SOUTH:
                 return _south;
-            case Directions.EAST:
+            case (int) Directions.EAST:
                 return _east;
-            case Directions.WEST:
+            case (int) Directions.WEST:
                 return _west;
-            case Directions.UP:
+            case (int) Directions.UP:
                 return _up;
-            case Directions.DOWN:
+            case (int) Directions.DOWN:
                 return _down;
         }
 
@@ -156,37 +152,37 @@ public class Room
         if(GetConnectionCount() > 0){
             if(GetConnectionCount() == 1){
                 retVal += "\nThere is an exit to the ";
-                if(HasConnection(Directions.NORTH)){
+                if(HasConnection((int) Directions.NORTH)){
                     retVal += "<color=#292b30><b>North</color></b>.";
-                } else if (HasConnection(Directions.EAST)){
+                } else if (HasConnection((int) Directions.EAST)){
                     retVal += "<color=#292b30><b>East</color></b>.";
-                } else if (HasConnection(Directions.SOUTH)){
+                } else if (HasConnection((int) Directions.SOUTH)){
                     retVal += "<color=#292b30><b>South</color></b>.";
-                } else if (HasConnection(Directions.WEST)){
+                } else if (HasConnection((int) Directions.WEST)){
                     retVal += "<color=#292b30><b>West</color></b>.";
                 }
             } else {
                 retVal += "\nThere are exits to the ";
                 int count = 0;
-                for (int i = 0; i < MAX_HORIZONTAL_CONNECTION_COUNT; i++){
+                for (int i = 0; i < (int) Maps.MAX_HORIZONTAL_CONNECTION_COUNT; i++){
                     if(count == GetConnectionCount()-1 && HasConnection(i)){
-                        if(i == Directions.NORTH){
+                        if(i == (int) Directions.NORTH){
                             retVal += "and <color=#292b30><b>North</color></b>.";
-                        } else if(i == Directions.EAST){
+                        } else if(i == (int) Directions.EAST){
                             retVal += "and <color=#292b30><b>East</color></b>.";
-                        } else if(i == Directions.SOUTH){
+                        } else if(i == (int) Directions.SOUTH){
                             retVal += "and <color=#292b30><b>South</color></b>.";
-                        } else if(i == Directions.WEST){
+                        } else if(i == (int) Directions.WEST){
                             retVal += "and <color=#292b30><b>West</color></b>. ";
                         }
                     } else if(count < GetConnectionCount()-1 && HasConnection(i)){
-                        if(i == Directions.NORTH){
+                        if(i == (int) Directions.NORTH){
                             retVal += "<color=#292b30><b>North</color></b>, ";
-                        } else if(i == Directions.EAST){
+                        } else if(i == (int) Directions.EAST){
                             retVal += "<color=#292b30><b>East</color></b>, ";
-                        } else if(i == Directions.SOUTH){
+                        } else if(i == (int) Directions.SOUTH){
                             retVal += "<color=#292b30><b>South</color></b>, ";
-                        } else if(i == Directions.WEST){
+                        } else if(i == (int) Directions.WEST){
                             retVal += "<color=#292b30><b>West</color></b>, ";
                         }
                         count++;
@@ -194,7 +190,7 @@ public class Room
                 }
             }
         }
-        if(HasConnection(Directions.DOWN) || HasConnection(Directions.UP)) retVal += "\nThere is a <color=#292b30>staircase</color> leading " + (HasConnection(Directions.DOWN) ? "<color=#292b30>further below</color>.": "<color=#292b30>up</color>.") ;
+        if(HasConnection((int) Directions.DOWN) || HasConnection((int) Directions.UP)) retVal += "\nThere is a <color=#292b30>staircase</color> leading " + (HasConnection((int) Directions.DOWN) ? "<color=#292b30>further below</color>.": "<color=#292b30>up</color>.") ;
 
         foreach (NPC npc in NPCs)
         {

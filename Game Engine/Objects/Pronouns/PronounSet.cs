@@ -1,4 +1,5 @@
-﻿using static Constants;
+﻿using System;
+
 public class PronounSet
 {
     private readonly FirstPersonPronouns _firstPerson = new FirstPersonPronouns();
@@ -21,16 +22,16 @@ public class PronounSet
         switch (r.Next(4))
         {
             case 0:
-                _thirdPerson = new ThirdPersonPronouns(Genders.MASCULINE);
+                _thirdPerson = new ThirdPersonPronouns((int) Genders.MASCULINE);
                 break;
             case 1:
-                _thirdPerson = new ThirdPersonPronouns(Genders.FEMININE);
+                _thirdPerson = new ThirdPersonPronouns((int) Genders.FEMININE);
                 break;
             case 2:
-                _thirdPerson = new ThirdPersonPronouns(Genders.EPICENE);
+                _thirdPerson = new ThirdPersonPronouns((int) Genders.EPICENE);
                 break;
             case 3:
-                _thirdPerson = new ThirdPersonPronouns(Genders.NETUER);
+                _thirdPerson = new ThirdPersonPronouns((int) Genders.NEUTER);
                 break;
         }
     }

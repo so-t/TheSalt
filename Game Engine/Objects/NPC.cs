@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 using System.Runtime.InteropServices;
 using Markov;
 using UnityEngine;
 using static GlobalVariables;
-using static Constants;
 
 public class NPC : Character
 {
@@ -19,7 +18,7 @@ public class NPC : Character
     
     public NPC()
     {
-        _origin = Rand.Next(0, Arrays.ORIGIN_ARRAY_LENGTH);
+        _origin = Rand.Next(0, (int) Arrays.ORIGIN_ARRAY_LENGTH);
         var chain = new MarkovChain<char>(3);
         foreach (var name in names)
         {
@@ -30,48 +29,47 @@ public class NPC : Character
         {
             n = chain.Chain(Rand).ToArray();
         } while (n.Length > 7);
-        n[0] = Char.ToUpper(n[0]);
+        n[0] = char.ToUpper(n[0]);
         SetName(new string(n));
-        _gender = Rand.Next(0, GENDER_ARRAY_LENGTH);
+        _gender = Rand.Next(0, (int) Arrays.GENDER_ARRAY_LENGTH);
         SetPronouns(new PronounSet(_gender));
         SetHealth(10);
         SetIsAlive(true);
         
         _hasTattoo = Rand.Next(0, 101) <= 35;
-        if (_hasTattoo) _tattooLocation = Rand.Next(0, Arrays.TATTOO_LOCATION_ARRAY_LENGTH);
+        if (_hasTattoo) _tattooLocation = Rand.Next(0, (int) Arrays.TATTOO_LOCATION_ARRAY_LENGTH);
         
         _hasGear = Rand.Next(0, 101) <= 33;
-        _gear = Rand.Next(0, Arrays.ITEM_ARRAY_LENGTH);
-        _gearLocation = Rand.Next(0, Arrays.ITEM_LOCATION_ARRAY_LENGTH);
+        _gear = Rand.Next(0, (int) Arrays.ITEM_ARRAY_LENGTH);
+        _gearLocation = Rand.Next(0, (int) Arrays.ITEM_LOCATION_ARRAY_LENGTH);
         
-        SetWeapon(_gear < 4 ? new Weapon(_gear) : new Weapon(Weapons.UNARMED));
+        SetWeapon(_gear < 4 ? new Weapon(_gear) : new Weapon((int) Weapons.UNARMED));
         
         
         
-        var description = Touppder(GetThirdPersonSubjective()[0]) + GetThirdPersonSubjective().substring(1)
-                          + pronouns[_gender, SUBJECTIVE_UPPER] +
-                          + (_gender == Genders.EPICENE ? " appear" : " appears") + " to be from " 
-                          + origins[_origin] 
-                          + ".";
+        var description = char.ToUpper( GetThirdPersonSubjective()[0]) + GetThirdPersonSubjective().Substring(1)
+                                                                        + (_gender == (int) Genders.EPICENE ? " appear" : " appears") + " to be from " 
+                                                                        + origins[_origin] 
+                                                                        + ".";
         if (_hasTattoo)
             description += " " 
-                           + Touppder(GetThirdPersonSubjective()[0]) + GetThirdPersonSubjective().substring(1) 
-                           + (_gender == THEY_THEM ? " have" : " has") 
-                           + (_tattooLocation < PLURL_TATTOO_CUTOFF ? " a tattoo" : " tattoos") 
+                           + char.ToUpper(GetThirdPersonSubjective()[0]) + GetThirdPersonSubjective().Substring(1) 
+                           + (_gender == (int) Genders.EPICENE ? " have" : " has") 
+                           + (_tattooLocation < (int) Arrays.PLURL_TATTOO_CUTOFF ? " a tattoo" : " tattoos") 
                            + " on " 
-                           + GetThirdPersonDependentPosessive()
+                           + GetThirdPersonDependentPossessive()
                            + " " 
                            + tattooLocations[_tattooLocation] 
                            + ".";
 
         if (_hasGear)
             description += " "
-                           + Touppder(GetThirdPersonSubjective()[0]) + GetThirdPersonSubjective().substring(1)
-                           + (_gender == THEY_THEM ? " carry a " : " carries a ")
+                           + char.ToUpper(GetThirdPersonSubjective()[0]) + GetThirdPersonSubjective().Substring(1)
+                           + (_gender == (int) Genders.EPICENE ? " carry a " : " carries a ")
                            + items[_gear]
-                           + (_gearLocation == EqipmentSlots.BACKSTRAP ? 
-                               " strapped to " + GetThirdPersonDependentPosessive() + " " + itemLocations[_gearLocation] 
-                               : " in " + GetThirdPersonDependentPosessive() + " " + itemLocations[_gearLocation])
+                           + (_gearLocation == (int) EquipmentSlots.BACKSTRAP ? 
+                               " strapped to " + GetThirdPersonDependentPossessive() + " " + itemLocations[_gearLocation] 
+                               : " in " + GetThirdPersonDependentPossessive() + " " + itemLocations[_gearLocation])
                            + ".";
             
         SetDescription(description);
@@ -95,7 +93,7 @@ public class NPC : Character
     public void MoveNPC()
     {
         List<int> connections = new List<int>();
-        for (var dir = NORTH; dir < 4; dir++)
+        for (var dir = (int) Directions.NORTH; dir < 4; dir++)
         {
             if (_currentRoom.HasConnection(dir)) connections.Add(dir);
         }
@@ -110,16 +108,16 @@ public class NPC : Character
             GameLog += "<color=#292b30>" + GetName() + " heads ";
             switch (direction)
             {
-                case NORTH:
+                case (int) Directions.NORTH:
                     GameLog += "north.\n";
                     break;
-                case SOUTH:
+                case (int) Directions.SOUTH:
                     GameLog += "south.\n";
                     break;
-                case EAST:
+                case (int) Directions.EAST:
                     GameLog += "east.\n";
                     break;
-                case WEST:
+                case (int) Directions.WEST:
                     GameLog += "west.\n";
                     break;
             }
@@ -133,16 +131,16 @@ public class NPC : Character
             GameLog += "<color=#292b30>" + GetName() + " arrives from the ";
             switch (direction)
             {
-                case NORTH:
+                case (int) Directions.NORTH:
                     GameLog += "south.\n";
                     break;
-                case SOUTH:
+                case (int) Directions.SOUTH:
                     GameLog += "north.\n";
                     break;
-                case EAST:
+                case (int) Directions.EAST:
                     GameLog += "west.\n";
                     break;
-                case WEST:
+                case (int) Directions.WEST:
                     GameLog += "east.\n";
                     break;
             }

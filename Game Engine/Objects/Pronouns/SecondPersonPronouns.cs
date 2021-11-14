@@ -1,5 +1,4 @@
-﻿using static Constants;
-public class SecondPersonPronouns
+﻿public class SecondPersonPronouns
 {
     private readonly string 
         _subjective = "you",

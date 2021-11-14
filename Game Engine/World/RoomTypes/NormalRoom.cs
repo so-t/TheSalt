@@ -1,5 +1,4 @@
 ﻿using System;
-using static Constants;
 using static GlobalVariables;
 
 namespace Game_Engine.World.RoomTypes

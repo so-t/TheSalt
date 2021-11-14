@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using static GlobalVariables;
-using static Constants;
 [CLSCompliant(false)]
 
 public class GameSetup : MonoBehaviour
@@ -23,7 +21,7 @@ public class GameSetup : MonoBehaviour
         CurrentLevel = 0;
         string title = "--- < " + CurrentRoom.GetTitle() + " >";
         GameLog = "<color=#292b30>---<</color> " + CurrentRoom.GetTitle() + " <color=#292b30>>";
-        for (int x = title.Length; x < Maps.MAX_CHAR_PER_MAIN_DISPLAY_LINE; x++)
+        for (int x = title.Length; x < (int) Maps.MAX_CHAR_PER_MAIN_DISPLAY_LINE; x++)
         {
             GameLog += "-";
         }

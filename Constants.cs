@@ -1,5 +1,4 @@
-﻿
-// ReSharper disable InconsistentNaming
+﻿// ReSharper disable InconsistentNaming
 
 public enum Origins
 {
@@ -57,7 +56,7 @@ public enum Maps
     MAX_HORIZONTAL_CONNECTION_COUNT = 4,
     MAX_NPC_COUNT = 4,
     MAX_FLOOR_COUNT = 5,
-    MAX_CHAR_PER_MAIN_DISPLAY_LINE = 58;
+    MAX_CHAR_PER_MAIN_DISPLAY_LINE = 58
 }
 
 public enum Directions

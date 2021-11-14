@@ -5,7 +5,6 @@ using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using static GlobalVariables;
-using static Constants;
 [CLSCompliant(false)]
 
 
@@ -26,12 +25,12 @@ public class MainInputParsing : MonoBehaviour
     
     void MovePlayer(int direction){
         if(CurrentRoom.HasConnection(direction)){
-            if (direction == Directions.DOWN)
+            if (direction == (int) Directions.DOWN)
             {
                 CurrentLevel += 1;
             }
 
-            if (direction == Directions.UP)
+            if (direction == (int) Directions.UP)
             {
                 CurrentLevel -= 1;
             }
@@ -39,7 +38,7 @@ public class MainInputParsing : MonoBehaviour
             if (!CurrentRoom.GetVisited())
             {
                 CurrentRoom.SetVisited(true);
-                for (int dir = Directions.NORTH; dir < 4; dir++)
+                for (int dir = (int) Directions.NORTH; dir < 4; dir++)
                 {
                     if (CurrentRoom.GetConnection(dir) != null && !CurrentRoom.GetConnection(dir).GetDiscovered())
                     {
@@ -52,7 +51,7 @@ public class MainInputParsing : MonoBehaviour
 
             string title = "---< " + CurrentRoom.GetTitle() + " >";
             GameLog = "<color=#292b30>---<</color> " + CurrentRoom.GetTitle() + " <color=#292b30>>";
-            for (int x = title.Length; x < Maps.MAX_CHAR_PER_MAIN_DISPLAY_LINE; x++)
+            for (int x = title.Length; x < (int) Maps.MAX_CHAR_PER_MAIN_DISPLAY_LINE; x++)
             {
                 GameLog += "-";
             }
@@ -77,32 +76,32 @@ public class MainInputParsing : MonoBehaviour
         {
             if (Regex.IsMatch(input, "[Nn]orth$"))
             {
-                MovePlayer(NORTH);
+                MovePlayer((int) Directions.NORTH);
                 DoUpdateMapDisplay = true;
                 DoUpdateLogDisplay = true;
             } else if (Regex.IsMatch(input, "[Ee]ast$"))
             {
-                MovePlayer(EAST);
+                MovePlayer((int) Directions.EAST);
                 DoUpdateMapDisplay = true;
                 DoUpdateLogDisplay = true;
             } else if (Regex.IsMatch(input, "[Ww]est$"))
             {
-                MovePlayer(WEST);
+                MovePlayer((int)  Directions.WEST);
                 DoUpdateMapDisplay = true;
                 DoUpdateLogDisplay = true;
             } else if (Regex.IsMatch(input, "[Ss]outh$"))
             {
-                MovePlayer(SOUTH);
+                MovePlayer((int) Directions.SOUTH);
                 DoUpdateMapDisplay = true;
                 DoUpdateLogDisplay = true;
             } else if (Regex.IsMatch(input, "[Dd]own$"))
             {
-                MovePlayer(DOWN);
+                MovePlayer((int) Directions.DOWN);
                 DoUpdateMapDisplay = true;
                 DoUpdateLogDisplay = true;
             } else if (Regex.IsMatch(input, "[Uu]p$"))
             {
-                MovePlayer(UP);
+                MovePlayer((int) Directions.UP);
                 DoUpdateMapDisplay = true;
                 DoUpdateLogDisplay = true;
             }else {

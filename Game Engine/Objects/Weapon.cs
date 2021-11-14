@@ -1,6 +1,4 @@
-﻿using static Constants;
-
-public class Weapon
+﻿public class Weapon
 {
     // Private Variables
     private int _damage;
@@ -11,20 +9,20 @@ public class Weapon
     {
         switch (type)
         {
-            case Weapons.QUARTERSTAFF:
-                _damage = WeaponDamages.QUARTERSTAFF_DAMAGE;
+            case (int) Weapons.QUARTERSTAFF:
+                _damage = (int) WeaponDamages.QUARTERSTAFF;
                 break;
-            case Weapons.SOLDIERS_SPEAR:
-                _damage = WeaponDamages.SOLDIERS_SPEAR_DAMAGE;
+            case (int) Weapons.SOLDIERS_SPEAR:
+                _damage = (int) WeaponDamages.SOLDIERS_SPEAR;
                 break;
-            case Weapons.WOODCUTTING_AXE:
-                _damage = WeaponDamages.WOODCUTTING_AXE_DAMAGE;
+            case (int) Weapons.WOODCUTTING_AXE:
+                _damage = (int) WeaponDamages.WOODCUTTING_AXE;
                 break;
-            case Weapons.BLACKSMITHS_HAMMER:
-                _damage = WeaponDamages.BLACKSMITHS_HAMMER_DAMAGE;
+            case (int) Weapons.BLACKSMITHS_HAMMER:
+                _damage = (int) WeaponDamages.BLACKSMITHS_HAMMER;
                 break;
-            case Weapons.UNARMED:
-                _damage = WeaponDamages.UNARMED_DAMAGE;
+            case (int) Weapons.UNARMED:
+                _damage = (int) WeaponDamages.UNARMED;
                 break;
         }
     }

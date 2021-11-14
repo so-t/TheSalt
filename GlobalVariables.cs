@@ -1,5 +1,4 @@
 ﻿using System;
-using static Constants;
 
 public static class GlobalVariables
 {
@@ -83,7 +82,7 @@ public static class GlobalVariables
         "Magus",
         "Caelesti",
         "Delrenese",
-        "Jackal"
+        "the Jackals"
     };
 
     public static string[] physicalFeatures =

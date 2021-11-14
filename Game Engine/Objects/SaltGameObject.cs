@@ -1,11 +1,9 @@
-﻿
-using static Constants;
-public class SaltGameObject
+﻿public class SaltGameObject
 {
         // Private variables
         private string _name, _description;
         private int _health, _maxHealth;
-        private PronounSet _pronounSet = new PronounSet(Genders.NEUTER);
+        private PronounSet _pronounSet = new PronounSet((int) Genders.NEUTER);
 
         // Public variables
 
@@ -51,57 +49,57 @@ public class SaltGameObject
 
         public void SetPronouns(PronounSet pronouns)
         {
-                _pronounSet = pronouns
+                _pronounSet = pronouns;
         }       
         
         public string GetSecondPersonSubjective() 
         {
-                return PronounSet.SecondPersonSubjective();
+                return _pronounSet.SecondPersonSubjective();
         }
         
         public string GetSecondPersonObjective() 
         {
-                return PronounSet.SecondPersonObjective();
+                return _pronounSet.SecondPersonObjective();
         }
         
         public string GetSecondPersonDependentPossessive() 
         {
-                return PronounSet.SecondPersonDependentPossessive();
+                return _pronounSet.SecondPersonDependentPossessive();
         }
         
         public string GetSecondPersonIndependentPossessive() 
         {
-                return PronounSet.SecondPersonIndependentPosessive();
+                return _pronounSet.SecondPersonIndependentPossessive();
         }
         
         public string GetSecondPersonReflexive() 
         {
-                return PronounSet.SecondPersonReflexive();
+                return _pronounSet.SecondPersonReflexive();
         }
 
         public string GetThirdPersonSubjective() 
         {
-                return PronounSet.ThirsPersonSubjective();
+                return _pronounSet.ThirdPersonSubjective();
         }
         
         public string GetThirdPersonObjective() 
         {
-                return PronounSet.ThirdPersonObjective();
+                return _pronounSet.ThirdPersonObjective();
         }
         
         public string GetThirdPersonDependentPossessive() 
         {
-                return PronounSet.ThirdPersonDependentPosessive();
+                return _pronounSet.ThirdPersonDependentPossessive();
         }
         
         public string GetThirdPersonIndependentPossessive() 
         {
-                return PronounSet.ThirdPersonIndependentPosessive();
+                return _pronounSet.ThirdPersonIndependentPossessive();
         }
         
         public string GetThirdPersonReflexive() 
         {
-                return PronounSet.ThirdPersonReflexive();
+                return _pronounSet.ThirdPersonReflexive();
         }
 
         public virtual void Update()
