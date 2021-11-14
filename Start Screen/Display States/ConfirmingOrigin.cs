@@ -2,7 +2,6 @@
 using Start_Screen;
 using System.Text.RegularExpressions;
 using static GlobalVariables;
-[CLSCompliant(false)]
 
 public class ConfirmingOrigin : State
 {

@@ -2,7 +2,6 @@
 using System.Linq;
 using UnityEngine;
 using static GlobalVariables;
-[CLSCompliant(false)]
 
 public class GameSetup : MonoBehaviour
 {

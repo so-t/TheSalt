@@ -5,7 +5,6 @@ using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using static GlobalVariables;
-[CLSCompliant(false)]
 
 
 public class MainInputParsing : MonoBehaviour

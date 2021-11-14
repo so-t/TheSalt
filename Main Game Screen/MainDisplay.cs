@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static GlobalVariables;
-[CLSCompliant(false)]
 
 public class MainDisplay : MonoBehaviour
 {

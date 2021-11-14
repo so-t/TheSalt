@@ -156,7 +156,6 @@ public class WorldBuilder
            var y = (int) Maps.MAP_HEIGHT / 2 - 1;
            while(floorCount < (int) Maps.MAX_FLOOR_COUNT)
            {
-               MonoBehaviour.print(floorCount);
                maps[floorCount] = new Map();
                
                while (maps[floorCount].GetRoomCount() < (int) Maps.MAX_ROOM_COUNT)

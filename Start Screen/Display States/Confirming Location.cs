@@ -4,7 +4,6 @@ using Markov;
 using Start_Screen;
 using UnityEngine.SceneManagement;
 using static GlobalVariables;
-[CLSCompliant(false)]
 
 public class ConfirmingLocation : State
 {

@@ -2,7 +2,6 @@
 using TMPro;
 using UnityEngine;
 using static GlobalVariables;
-[CLSCompliant(false)]
 
 public class MiniMapHandler : MonoBehaviour
 {

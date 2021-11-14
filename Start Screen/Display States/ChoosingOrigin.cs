@@ -1,8 +1,6 @@
 ﻿using System;
 using Start_Screen;
 using static GlobalVariables;
-[CLSCompliant(false)]
-
 public class ChoosingOrigin : State
 {
     // Private variables

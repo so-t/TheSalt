@@ -3,7 +3,6 @@ using System.Text.RegularExpressions;
 using Start_Screen;
 using TMPro;
 using UnityEngine;
-[CLSCompliant(false)]
 
 public class InputParsing : MonoBehaviour
 {
