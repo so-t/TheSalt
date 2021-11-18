@@ -15,7 +15,6 @@ public class NPC : Character
     private float _timeOfLastAction = Rand.Next(0,21) + Time.time, _minTimeBetweenActions = 30.0f;
 
     // Public Variables
-    
     public NPC()
     {
         _origin = Rand.Next(0, (int) Arrays.ORIGIN_ARRAY_LENGTH);
@@ -102,9 +101,9 @@ public class NPC : Character
 
         if (_currentRoom == CurrentRoom)
         {
-            _currentRoom.NPCs.Remove(this);
+            _currentRoom.Objects.Remove(this);
             _currentRoom = _currentRoom.GetConnection(direction);
-            _currentRoom.NPCs.Add(this);
+            _currentRoom.Objects.Add(this);
             GameLog += "<color=#292b30>" + GetName() + " heads ";
             switch (direction)
             {
@@ -125,9 +124,9 @@ public class NPC : Character
         } 
         else if (_currentRoom.GetConnection(direction) == CurrentRoom)
         {
-            _currentRoom.NPCs.Remove(this);
+            _currentRoom.Objects.Remove(this);
             _currentRoom = _currentRoom.GetConnection(direction);
-            _currentRoom.NPCs.Add(this);
+            _currentRoom.Objects.Add(this);
             GameLog += "<color=#292b30>" + GetName() + " arrives from the ";
             switch (direction)
             {
@@ -155,5 +154,6 @@ public class NPC : Character
             _timeOfLastAction = Time.time;
             MoveNPC();
         }
+        ApplyStatus();
     }
 }

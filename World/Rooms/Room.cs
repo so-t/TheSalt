@@ -16,7 +16,7 @@ public class Room
         _y = y;
     }
     
-    public List<NPC> NPCs;
+    public List<SaltGameObject> Objects;
 
     public string GetPhysicalFeature()
     {
@@ -192,9 +192,9 @@ public class Room
         }
         if(HasConnection((int) Directions.DOWN) || HasConnection((int) Directions.UP)) retVal += "\nThere is a <color=#292b30>staircase</color> leading " + (HasConnection((int) Directions.DOWN) ? "<color=#292b30>further below</color>.": "<color=#292b30>up</color>.") ;
 
-        foreach (NPC npc in NPCs)
+        foreach (SaltGameObject obj in Objects)
         {
-            retVal += "\n\nYou see " + npc.GetName() + " here. " + npc.GetDescription();
+            retVal += "\n\nYou see " + obj.GetName() + " here. " + obj.GetDescription();
         };
         
         return retVal;

@@ -127,16 +127,16 @@ public class MainInputParsing : MonoBehaviour
                 string target = input;
                 target = input.Split(' ').Last().ToLower();
                 // For each NPC in the room, we check if the name, set to lowercase, matches the input target.
-                foreach (NPC npc in CurrentRoom.NPCs){
-                    if(npc.GetName().ToLower() == target){
-                        if(npc.GetIsAlive()){
-                            message += "You attack " + npc.GetName() + " for " + Player.Attack(npc) + " points of damage" + (npc.GetIsAlive() ? "!" : ", finishing " + npc.GetThirdPersonObjective() + "!");
+                foreach (SaltGameObject obj in CurrentRoom.Objects){
+                    if(obj.GetName().ToLower() == target){
+                        if(obj.GetIsAlive()){
+                            message += "You attack " + obj.GetName() + " for " + Player.Attack(obj) + " points of damage" + (obj.GetIsAlive() ? "!" : ", finishing " + obj.GetThirdPersonObjective() + "!");
                             attacked = true;
-                            if(npc.GetWeapon() != null && npc.GetIsAlive()){
-                                message += "\n" + npc.GetName() + " attacks you for " + npc.Attack(Player) + " points of damage!";
+                            if(obj.GetWeapon() != null && obj.GetIsAlive()){
+                                message += "\n" + obj.GetName() + " attacks you for " + obj.Attack(Player) + " points of damage!";
                             }
                         } else {
-                            message += npc.GetName() + " is already dead.";
+                            message += obj.GetName() + " is already dead.";
                             attacked = true;
                         }
                     }

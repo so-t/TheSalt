@@ -11,7 +11,7 @@ namespace Game_Engine.World.RoomTypes
         private Room _room;
 
         // Public Variables
-        public List<NPC> NPCs = new List<NPC>();
+        public List<SaltGameObject> Objects = new List<SaltGameObject>();
 
         public RoomType(Room room)
         {
@@ -22,7 +22,7 @@ namespace Game_Engine.World.RoomTypes
         {
             NPC npc = new NPC();
             npc.SetCurrentRoom(_room);
-            NPCs = NPCs.Prepend(npc).ToList();
+            Objects = Objects.Prepend(npc).ToList();
             
         }
 

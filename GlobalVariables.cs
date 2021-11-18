@@ -10,13 +10,6 @@ public static class GlobalVariables
     public static Character Player;
     public static bool DoUpdateMapDisplay = true, DoUpdateLogDisplay = true, DoSetDisplayAlignmentMiddle = false, DoSetDisplayAlignmentTop = false;
 
-    public static string[,] pronouns = 
-    {
-        {"he","him","his","He","Him","His","", ""},
-        {"she","her","hers","She","Her","Hers","", ""},
-        {"they","them","their","They","Them","Their","their","Theirs"}
-    };
-
     public static string[] items = 
     {
         "quarterstaff",

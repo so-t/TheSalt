@@ -87,5 +87,14 @@ public enum Arrays
     PHYSICAL_FEATURE_ARRAY_LENGTH = 23,
     SENSORY_FEATURE_ARRAY_LENGTH = 10,
     SCENT_ARRAY_LENGTH = 16,
-    MATERIALS_ARRAY_LENGTH = 8,      
+    MATERIALS_ARRAY_LENGTH = 8      
+}
+
+public enum StatusPriorities
+{
+    MIN = 0,
+    HEALING = MIN,
+    DAMAGE = 1,
+    PASSIVE = MAX,
+    MAX = 10
 }

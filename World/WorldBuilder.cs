@@ -188,7 +188,7 @@ public class WorldBuilder
                }
 
                room.SetVisited(false);
-               room.NPCs = room.GetRoomType().NPCs;
+               room.Objects = room.GetRoomType().Objects;
            });
 
            CurrentRoom = maps[0].GetRoom((int) Maps.MAP_WIDTH / 2 - 1, (int) Maps.MAP_HEIGHT / 2 - 1);
