@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using static GlobalVariables;
 
 public class GameSetup : MonoBehaviour
@@ -29,19 +28,11 @@ public class GameSetup : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    { 
         Player.Update();
-        foreach (var map in GameMap)
-        {
-            if (map == null) continue;
-            foreach (var room in map.GetRoomList())
-            {
-                if (room == null) continue;
-                foreach (var obj in room.Objects.ToList())
-                {
-                    obj?.Update();
-                }
-            }
+        foreach (var room in GameMap[CurrentLevel].GetRoomList()) 
+        { 
+            room?.Update();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Game_Engine.World.RoomTypes;
 
 public class Room : SaltGameObject
@@ -198,6 +199,14 @@ public class Room : SaltGameObject
         };
         
         return retVal;
+    }
+
+    public override void Update()
+    {
+        foreach (var obj in Objects.ToList())
+        {
+            obj?.Update();
+        }
     }
 }
     

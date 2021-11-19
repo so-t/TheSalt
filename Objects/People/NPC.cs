@@ -30,7 +30,7 @@ public class NPC : Character
         } while (n.Length > 7);
         n[0] = char.ToUpper(n[0]);
         SetName(new string(n));
-        _gender = Rand.Next(0, (int) Arrays.GENDER_ARRAY_LENGTH);
+        _gender = Rand.Next(0, (int) Arrays.GENDER_TYPES);
         SetPronouns(new PronounSet(_gender));
         SetHealth(10);
         SetIsAlive(true);
