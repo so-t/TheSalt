@@ -42,7 +42,7 @@ public class NPC : Character
         _gear = Rand.Next(0, (int) Arrays.ITEM_ARRAY_LENGTH);
         _gearLocation = Rand.Next(0, (int) Arrays.ITEM_LOCATION_ARRAY_LENGTH);
         
-        SetWeapon(_gear < 4 ? new Weapon(_gear) : new Weapon((int) Weapons.UNARMED));
+        Weapon = (_gear < 4 ? new Weapon(_gear) : new Weapon((int) Weapons.UNARMED));
         
         
         
@@ -74,11 +74,14 @@ public class NPC : Character
         SetDescription(description);
     }
 
-    public int GetGender()
+    public override void Attack(SaltGameObject target)
     {
-        return _gender;
+        int damage = Rand.Next(1, GetWeapon().GetDamage());
+        target.Defend(damage);
+        if(target == Player)
+            GameLog += "\n" + GetName() + " attacks you for " + damage + " points of damage!";
     }
-
+    
     public void SetCurrentRoom(Room room)
     {
         _currentRoom = room;
@@ -149,7 +152,7 @@ public class NPC : Character
 
     public override void Update()
     {
-        if (_timeOfLastAction + _minTimeBetweenActions < Time.time)
+        if (GetIsAlive() &&_timeOfLastAction + _minTimeBetweenActions < Time.time)
         {
             _timeOfLastAction = Time.time;
             MoveNPC();

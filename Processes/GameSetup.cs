@@ -5,7 +5,7 @@ using static GlobalVariables;
 public class GameSetup : MonoBehaviour
 {
     // Private variables
-    
+
     // Public variables
     public TextAsset nameBases;
     
@@ -23,7 +23,7 @@ public class GameSetup : MonoBehaviour
         {
             GameLog += "-";
         }
-        GameLog += "</color>\n" + CurrentRoom.GetFullDescription();
+        GameLog += "</color>\n" + CurrentRoom.GetDescription();
 
     }
 
@@ -33,17 +33,13 @@ public class GameSetup : MonoBehaviour
         Player.Update();
         foreach (var map in GameMap)
         {
-            if (map != null)
+            if (map == null) continue;
+            foreach (var room in map.GetRoomList())
             {
-                foreach (var room in map.GetRoomList())
+                if (room == null) continue;
+                foreach (var obj in room.Objects.ToList())
                 {
-                    if (room != null)
-                    {
-                        foreach (var obj in room.Objects.ToList())
-                        {
-                            obj?.Update();
-                        }
-                    }
+                    obj?.Update();
                 }
             }
         }

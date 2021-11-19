@@ -80,7 +80,8 @@ public enum Arrays
 {
     TATTOO_LOCATION_ARRAY_LENGTH = 16,
     PLURL_TATTOO_CUTOFF = 13,
-    ORIGIN_ARRAY_LENGTH = 10,        
+    ORIGIN_ARRAY_LENGTH = 10,     
+    // TODO Change the name of Gender_array_length to reflect it is not enum backed
     GENDER_ARRAY_LENGTH = 3,         
     ITEM_ARRAY_LENGTH = 25,          
     ITEM_LOCATION_ARRAY_LENGTH = 3,   

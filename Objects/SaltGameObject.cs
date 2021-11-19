@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using UnityEditor.SceneManagement;
+using UnityEngine;
 
 public class SaltGameObject
 {
@@ -8,17 +8,21 @@ public class SaltGameObject
         private int _health, _maxHealth;
         private LinkedList<Status> _status = new LinkedList<Status>();
         private bool _isALive;
-        private Weapon _weapon;
         private PronounSet _pronounSet = new PronounSet((int) Genders.NEUTER);
 
         // Public variables
-        public void SetName(string name)
+        protected Weapon Weapon;
+        public int statusCount = 0;
+        
+        protected void SetName(string name)
         {
                 _name = name;
         }
 
+        //TODO Test to make sure adding and removing status functions as intended
         public void AddNewStatus(Status status)
         {
+                statusCount += 1;
                 if (_status.Count == 0)
                 {
                         _status.AddFirst(status);
@@ -40,12 +44,12 @@ public class SaltGameObject
                 return _name;
         }
 
-        public void SetDescription(string description)
+        protected void SetDescription(string description)
         {
                 _description = description;
         }
 
-        public string GetDescription()
+        public virtual string GetDescription()
         {
                 return _description;
         }
@@ -60,16 +64,9 @@ public class SaltGameObject
                 return _health;
         }
         
-        public virtual int Attack(SaltGameObject target)
-        {
-                return 0;
-        }
+        public virtual void Attack(SaltGameObject target) {}
         
-        public virtual void Defend(int damage)
-        {
-                SetHealth(damage >= GetHealth() ?  GetHealth() - damage : 0);
-                if (GetHealth() == 0) SetIsAlive(false);
-        }
+        public virtual void Defend(int damage) {}
 
         public void SetMaxHealth(int maxHealth)
         {
@@ -81,7 +78,7 @@ public class SaltGameObject
                 return _maxHealth;
         }
 
-        public void SetIsAlive(bool isAlive)
+        protected void SetIsAlive(bool isAlive)
         {
                 _isALive = isAlive;
         }
@@ -91,17 +88,17 @@ public class SaltGameObject
                 return _isALive;
         }
 
-        public void SetWeapon(Weapon weapon)
+        protected virtual void SetWeapon(Weapon weapon)
         {
-                _weapon = weapon;
+                Weapon = weapon;
         }
 
         public Weapon GetWeapon()
         {
-                return _weapon;
+                return Weapon;
         }
 
-        public void SetPronouns(PronounSet pronouns)
+        protected void SetPronouns(PronounSet pronouns)
         {
                 _pronounSet = pronouns;
         }
@@ -131,7 +128,7 @@ public class SaltGameObject
                 return _pronounSet.SecondPersonReflexive();
         }
 
-        public string GetThirdPersonSubjective() 
+        protected string GetThirdPersonSubjective() 
         {
                 return _pronounSet.ThirdPersonSubjective();
         }
@@ -141,7 +138,7 @@ public class SaltGameObject
                 return _pronounSet.ThirdPersonObjective();
         }
         
-        public string GetThirdPersonDependentPossessive() 
+        protected string GetThirdPersonDependentPossessive() 
         {
                 return _pronounSet.ThirdPersonDependentPossessive();
         }
@@ -156,7 +153,7 @@ public class SaltGameObject
                 return _pronounSet.ThirdPersonReflexive();
         }
 
-        public void ApplyStatus()
+        protected void ApplyStatus()
         {
                 for (var node = _status.First; node != null; )
                 {
@@ -166,6 +163,11 @@ public class SaltGameObject
                         if (status.ShouldBeRemoved())
                         {
                                 var temp = node;
+                                statusCount -= 1;
+                                Debug.Log("Removing an instance of poison.\n" +
+                                          "The player currently has " +
+                                          statusCount +
+                                          " instances of poison.");
                                 node = node.Next;
                                 _status.Remove(temp);
                         }

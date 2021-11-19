@@ -4,32 +4,15 @@ public class Status : SaltGameObject
 {
     //Private variables
     private SaltGameObject _target;
-    private float _duration;
     private int _priority;
     
 
     //Public variables
-    public virtual void Affect(SaltGameObject target)
-    {
-    }
-    
-    public virtual void AdjustDuration()
-    {
-    }
+    public virtual void Affect(SaltGameObject target) { }
 
     public void SetTarget(SaltGameObject target)
     {
         _target = target;
-    }
-
-    public void SetDuration(float duration)
-    {
-        _duration = duration;
-    }
-
-    public float GetDuration()
-    {
-        return _duration;
     }
 
     public void SetPriority(int priority)
@@ -47,9 +30,9 @@ public class Status : SaltGameObject
         return false;
     }
 
+    //TODO Change duration implementation
     public override void Update()
     {
         Affect(_target);
-        AdjustDuration();
     }
 }

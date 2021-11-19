@@ -54,7 +54,7 @@ public class MainInputParsing : MonoBehaviour
             {
                 GameLog += "-";
             }
-            GameLog += "</color>\n" + CurrentRoom.GetFullDescription();
+            GameLog += "</color>\n" + CurrentRoom.GetDescription();
         } else {
             GameLog += "There is no path in that direction!";
         }
@@ -109,10 +109,10 @@ public class MainInputParsing : MonoBehaviour
         }
         // Inputs starting with "Look" handled here
         // "Look" on it's own will display the full description of the current room.
-        // "Look" followed by "map" will display a visual printout of all rooms and their connections (This is aceived by calling "printMap()").
+        // "Look" followed by "map" will display a visual printout of all rooms and their connections (This is achieved by calling "printMap()").
         else if(Regex.IsMatch(input, "^[Ll]ook")){
             if(Regex.IsMatch(input, "^[Ll]ook(&|[Aa]round|(.*)[Rr]oom)*$")){
-                message += CurrentRoom.GetFullDescription();
+                message += CurrentRoom.GetDescription();
             }
         }
 
@@ -122,26 +122,25 @@ public class MainInputParsing : MonoBehaviour
                 message += "Attack what?";
             }
             else if(Regex.IsMatch(input, " (.*)$")){
-                bool attacked = false;
                 // Make a copy of the user-entered target and set to lowercase
-                string target = input;
+                var target = input;
+                var hasAttacked = false;
+                
                 target = input.Split(' ').Last().ToLower();
                 // For each NPC in the room, we check if the name, set to lowercase, matches the input target.
-                foreach (SaltGameObject obj in CurrentRoom.Objects){
-                    if(obj.GetName().ToLower() == target){
-                        if(obj.GetIsAlive()){
-                            message += "You attack " + obj.GetName() + " for " + Player.Attack(obj) + " points of damage" + (obj.GetIsAlive() ? "!" : ", finishing " + obj.GetThirdPersonObjective() + "!");
-                            attacked = true;
-                            if(obj.GetWeapon() != null && obj.GetIsAlive()){
-                                message += "\n" + obj.GetName() + " attacks you for " + obj.Attack(Player) + " points of damage!";
-                            }
-                        } else {
-                            message += obj.GetName() + " is already dead.";
-                            attacked = true;
+                foreach (var obj in CurrentRoom.Objects)
+                {
+                    if (obj.GetName().ToLower() != target) continue;
+                    if(obj.GetIsAlive())
+                    {
+                        Player.Attack(obj);
+                        hasAttacked = true;
+                        if(obj.GetWeapon() != null && obj.GetIsAlive()){
+                            obj.Attack(Player);
                         }
                     }
                 }
-                if(!attacked) message += "Attack what?";
+                if(!hasAttacked) message += "You don't see that here.";
             }
         }
         GameLog += message;

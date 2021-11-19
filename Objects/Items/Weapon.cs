@@ -1,7 +1,7 @@
-﻿public class Weapon
+﻿public class Weapon : Item
 {
     // Private Variables
-    private int _damage;
+    private readonly int _damage;
     private string _description;
     
     // Public Variables

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Game_Engine.World.RoomTypes;
 
-public class Room
+public class Room : SaltGameObject
 {
     // Private variables
     private int _x, _y, _connectionCount;
@@ -38,9 +38,9 @@ public class Room
         return _roomType;
     }
     
-    public void SetXY(int X, int Y){
-        _x = X;
-        _y = Y;
+    public void SetXY(int x, int y){
+        _x = x;
+        _y = y;
     }
 
     public (int, int) GetXY(){
@@ -146,7 +146,7 @@ public class Room
         return _roomType.GetTitle();
     }
 
-    public string GetFullDescription()
+    public override string GetDescription()
     {
         var retVal = GetPhysicalFeature() + GetSensoryFeature();
         if(GetConnectionCount() > 0){

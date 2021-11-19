@@ -84,7 +84,7 @@ public class PronounSet
     }
     public string ThirdPersonObjective() 
     {
-        return _thirdPerson.Subjective();
+        return _thirdPerson.Objective();
     }
     public string ThirdPersonDependentPossessive() 
     {
