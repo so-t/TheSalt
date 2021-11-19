@@ -1,7 +1,9 @@
-﻿using System;
+﻿using UnityEngine;
+using Random = System.Random;
 
 public static class GlobalVariables
 {
+    public static GameObject TheSalt;
     public static int PlayerOrigin, GameRegion, CurrentLevel;
     public static string GameLog;
     public static Map[] GameMap = new Map[5];

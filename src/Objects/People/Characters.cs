@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 using static GlobalVariables;
 
-public class Character : SaltGameObject
+public class Character : SaltComponent
 {
     // Private Variables
 
     // Public Variables
-    public Character()
+    public override void Start()
     {
-        Weapon = new Weapon((int) Weapons.UNARMED);
+        Weapon = TheSalt.AddComponent<Weapon>();
+        Weapon.SetWeaponType(Weapons.UNARMED);
     }
 
-    public override void Attack(SaltGameObject target)
+    public override void Attack(SaltComponent target)
     {
         if (!target.GetIsAlive())
         {

@@ -1,16 +1,18 @@
 ﻿using UnityEngine;
 
-public class Status : SaltGameObject
+public class Status : SaltComponent
 {
     //Private variables
-    private SaltGameObject _target;
+    private SaltComponent _target;
     private int _priority;
     
 
     //Public variables
-    public virtual void Affect(SaltGameObject target) { }
+    protected bool Initialized = false;
 
-    public void SetTarget(SaltGameObject target)
+    public virtual void Affect(SaltComponent target) { }
+
+    public void SetTarget(SaltComponent target)
     {
         _target = target;
     }

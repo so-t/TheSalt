@@ -2,7 +2,7 @@
 using System.Linq;
 using Game_Engine.World.RoomTypes;
 
-public class Room : SaltGameObject
+public class Room : SaltComponent
 {
     // Private variables
     private int _x, _y, _connectionCount;
@@ -11,13 +11,13 @@ public class Room : SaltGameObject
     private bool _visited, _discovered;
 
     // Public variables
-    public Room(int x, int y)
+    public void Init(int x, int y)
     {
         _x = x;
         _y = y;
     }
     
-    public List<SaltGameObject> Objects;
+    public List<SaltComponent> Objects;
 
     public string GetPhysicalFeature()
     {
@@ -193,20 +193,12 @@ public class Room : SaltGameObject
         }
         if(HasConnection((int) Directions.DOWN) || HasConnection((int) Directions.UP)) retVal += "\nThere is a <color=#292b30>staircase</color> leading " + (HasConnection((int) Directions.DOWN) ? "<color=#292b30>further below</color>.": "<color=#292b30>up</color>.") ;
 
-        foreach (SaltGameObject obj in Objects)
+        foreach (SaltComponent obj in Objects)
         {
             retVal += "\n\nYou see " + obj.GetName() + " here. " + obj.GetDescription();
         };
         
         return retVal;
-    }
-
-    public override void Update()
-    {
-        foreach (var obj in Objects.ToList())
-        {
-            obj?.Update();
-        }
     }
 }
     

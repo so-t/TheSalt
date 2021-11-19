@@ -123,21 +123,17 @@ public class MainInputParsing : MonoBehaviour
             }
             else if(Regex.IsMatch(input, " (.*)$")){
                 // Make a copy of the user-entered target and set to lowercase
-                var target = input;
+                var target = input.Split(' ').Last().ToLower();
                 var hasAttacked = false;
                 
-                target = input.Split(' ').Last().ToLower();
                 // For each NPC in the room, we check if the name, set to lowercase, matches the input target.
                 foreach (var obj in CurrentRoom.Objects)
                 {
-                    if (obj.GetName().ToLower() != target) continue;
-                    if(obj.GetIsAlive())
-                    {
-                        Player.Attack(obj);
-                        hasAttacked = true;
-                        if(obj.GetWeapon() != null && obj.GetIsAlive()){
-                            obj.Attack(Player);
-                        }
+                    if (obj.GetName().ToLower() != target || !obj.GetIsAlive()) continue;
+                    Player.Attack(obj);
+                    hasAttacked = true;
+                    if(obj.GetWeapon() != null && obj.GetIsAlive()){
+                        obj.Attack(Player);
                     }
                 }
                 if(!hasAttacked) message += "You don't see that here.";
@@ -152,11 +148,5 @@ public class MainInputParsing : MonoBehaviour
         inputField.SetTextWithoutNotify("");
         inputField.ActivateInputField();
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class SaltGameObject
+public class SaltComponent : MonoBehaviour
 {
         // Private variables
         private string _name, _description;
@@ -12,8 +12,9 @@ public class SaltGameObject
 
         // Public variables
         protected Weapon Weapon;
-        public int statusCount = 0;
-        
+
+        public virtual void Start() {}
+
         protected void SetName(string name)
         {
                 _name = name;
@@ -22,7 +23,6 @@ public class SaltGameObject
         //TODO Test to make sure adding and removing status functions as intended
         public void AddNewStatus(Status status)
         {
-                statusCount += 1;
                 if (_status.Count == 0)
                 {
                         _status.AddFirst(status);
@@ -64,7 +64,7 @@ public class SaltGameObject
                 return _health;
         }
         
-        public virtual void Attack(SaltGameObject target) {}
+        public virtual void Attack(SaltComponent target) {}
         
         public virtual void Defend(int damage) {}
 
@@ -163,11 +163,6 @@ public class SaltGameObject
                         if (status.ShouldBeRemoved())
                         {
                                 var temp = node;
-                                statusCount -= 1;
-                                Debug.Log("Removing an instance of poison.\n" +
-                                          "The player currently has " +
-                                          statusCount +
-                                          " instances of poison.");
                                 node = node.Next;
                                 _status.Remove(temp);
                         }

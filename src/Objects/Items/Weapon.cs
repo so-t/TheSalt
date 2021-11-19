@@ -1,27 +1,29 @@
-﻿public class Weapon : Item
+﻿using TMPro;
+
+public class Weapon : Item
 {
     // Private Variables
-    private readonly int _damage;
+    private int _damage;
     private string _description;
     
     // Public Variables
-    public Weapon(int type)
+    public void SetWeaponType(Weapons type)
     {
         switch (type)
         {
-            case (int) Weapons.QUARTERSTAFF:
+            case Weapons.QUARTERSTAFF:
                 _damage = (int) WeaponDamages.QUARTERSTAFF;
                 break;
-            case (int) Weapons.SOLDIERS_SPEAR:
+            case Weapons.SOLDIERS_SPEAR:
                 _damage = (int) WeaponDamages.SOLDIERS_SPEAR;
                 break;
-            case (int) Weapons.WOODCUTTING_AXE:
+            case Weapons.WOODCUTTING_AXE:
                 _damage = (int) WeaponDamages.WOODCUTTING_AXE;
                 break;
-            case (int) Weapons.BLACKSMITHS_HAMMER:
+            case Weapons.BLACKSMITHS_HAMMER:
                 _damage = (int) WeaponDamages.BLACKSMITHS_HAMMER;
                 break;
-            case (int) Weapons.UNARMED:
+            case Weapons.UNARMED:
                 _damage = (int) WeaponDamages.UNARMED;
                 break;
         }

@@ -11,7 +11,8 @@ public class GameSetup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player = new Character();
+        TheSalt = new GameObject();
+        Player = TheSalt.AddComponent<Character>();
         names = nameBases.ToString().Split(',','\n');
         WorldBuilder builder = new WorldBuilder();
         GameMap = builder.CreateMap();
@@ -24,15 +25,5 @@ public class GameSetup : MonoBehaviour
         }
         GameLog += "</color>\n" + CurrentRoom.GetDescription();
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    { 
-        Player.Update();
-        foreach (var room in GameMap[CurrentLevel].GetRoomList()) 
-        { 
-            room?.Update();
-        }
     }
 }

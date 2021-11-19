@@ -17,7 +17,8 @@ public class WorldBuilder
            // Create target room
            if(map.GetRoom(x,y) == null)
            {
-               Room room = new Room(x,y);
+               Room room = TheSalt.AddComponent<Room>();
+               room.Init(x,y);
                _rooms.Add(room);
                map.SetRoom(room, x, y);
                map.IncrementRoomCount();

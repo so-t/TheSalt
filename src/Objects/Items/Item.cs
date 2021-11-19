@@ -1,4 +1,4 @@
-﻿public class Item : SaltGameObject
+﻿public class Item : SaltComponent
 {
     //Private Variables
     
