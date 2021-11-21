@@ -206,9 +206,6 @@ public class Init : MonoBehaviour
                }
 
                room.SetVisited(false);
-               Weapon w = TheSalt.AddComponent<Weapon>();
-               w.SetWeaponType(Weapons.BLACKSMITHS_HAMMER);
-               room.GetRoomType().components.AddFirst(w);
            });
 
            player.SetLocation(maps[0].GetRoom((int) Maps.MAP_WIDTH / 2 - 1, (int) Maps.MAP_HEIGHT / 2 - 1));
