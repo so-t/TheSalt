@@ -4,10 +4,12 @@ using static GlobalVariables;
 public class Character : SaltComponent
 {
     // Private Variables
-
+    private float t;
+    
     // Public Variables
     public override void Start()
     {
+        t = Time.time;
         Weapon = TheSalt.AddComponent<Weapon>();
         Weapon.SetWeaponType(Weapons.UNARMED);
     }
@@ -35,8 +37,5 @@ public class Character : SaltComponent
     }
 
 
-    public override void Update()
-    {
-        ApplyStatus();
-    }
+    public override void Update() { }
 }

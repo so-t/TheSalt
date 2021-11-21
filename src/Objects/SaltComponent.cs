@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SaltComponent : MonoBehaviour
 {
         // Private variables
         private string _name, _description;
         private int _health, _maxHealth;
-        private LinkedList<Status> _status = new LinkedList<Status>();
         private bool _isALive;
         private PronounSet _pronounSet = new PronounSet((int) Genders.NEUTER);
 
@@ -15,28 +13,9 @@ public class SaltComponent : MonoBehaviour
 
         public virtual void Start() {}
 
-        protected void SetName(string name)
+        protected void SetName(string s)
         {
-                _name = name;
-        }
-
-        //TODO Test to make sure adding and removing status functions as intended
-        public void AddNewStatus(Status status)
-        {
-                if (_status.Count == 0)
-                {
-                        _status.AddFirst(status);
-                }
-                else
-                {
-                        for (var node = _status.First; node != null; node = node.Next) 
-                        {
-                                if (status.GetPriority() < node.Value.GetPriority())
-                                {
-                                        _status.AddBefore(node, status);
-                                }
-                        }
-                }
+                _name = s;
         }
 
         public string GetName()
@@ -152,24 +131,6 @@ public class SaltComponent : MonoBehaviour
         {
                 return _pronounSet.ThirdPersonReflexive();
         }
-
-        protected void ApplyStatus()
-        {
-                for (var node = _status.First; node != null; )
-                {
-                        var status = node.Value;
-                        status.Update();
-
-                        if (status.ShouldBeRemoved())
-                        {
-                                var temp = node;
-                                node = node.Next;
-                                _status.Remove(temp);
-                        }
-                        else node = node.Next;
-                }
-        }
-
         public virtual void Update()
         {
         }

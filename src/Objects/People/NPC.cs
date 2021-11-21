@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System;
-using System.Runtime.InteropServices;
 using Markov;
 using UnityEngine;
 using static GlobalVariables;
@@ -13,7 +11,7 @@ public class NPC : Character
     private bool _hasTattoo, _hasGear;
     private Room _currentRoom;
     private float _timeOfLastAction;
-    private const float MIN_TIME_TIME_BETWEEN_ACTIONS = 30.0f;
+    private const float MinTimeTimeBetweenActions = 30.0f;
 
     private void MoveNPC()
     {
@@ -74,6 +72,7 @@ public class NPC : Character
     }
 
 
+    // TODO Fix: Currently if an object/NPC spawns in the starting room it will not return the correct description for the intro room message
     // Public Variables
     public override void Start()
     {
@@ -83,9 +82,9 @@ public class NPC : Character
         
         /* Begin Markov Chain for Name Creation */
         var chain = new MarkovChain<char>(3);
-        foreach (var name in names)
+        foreach (var s in names)
         {
-            chain.Add(name, weight: 1);
+            chain.Add(s, weight: 1);
         }
         char[] n;
         do
@@ -161,11 +160,8 @@ public class NPC : Character
     
     public override void Update()
     {
-        if (GetIsAlive() &&_timeOfLastAction + MIN_TIME_TIME_BETWEEN_ACTIONS < Time.time)
-        {
-            _timeOfLastAction = Time.time;
-            MoveNPC();
-        }
-        ApplyStatus();
+        if (!GetIsAlive() || !(_timeOfLastAction + MinTimeTimeBetweenActions < Time.time)) return;
+        _timeOfLastAction = Time.time;
+        MoveNPC();
     }
 }

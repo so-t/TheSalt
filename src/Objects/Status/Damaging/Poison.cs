@@ -1,21 +1,19 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using static GlobalVariables;
 
 public class Poison : Status
 {
     //Private Variables
-    private float _tickInterval = 2.0f, _timeOfLastTick;
+    private float _tickInterval = 1.0f, _timeOfLastTick;
     private int _damage, _ticks;
     
     //Public Variables
     public void Init(SaltComponent target, int ticks, int damage)
     {
-        SetTarget(target);
-        SetPriority((int) StatusPriorities.DAMAGE);
-        _timeOfLastTick = 0.0f;
+        _timeOfLastTick = Time.time;
         _ticks = ticks;
         _damage = damage;
+        Target = target;
         Initialized = true;
     }
 
@@ -24,13 +22,18 @@ public class Poison : Status
         return _ticks == 0;
     }
 
-    public override void Affect(SaltComponent target)
+    public override void Update()
     {
         if (!Initialized || _ticks <= 0 || !(_timeOfLastTick + _tickInterval <= Time.time)) return;
         _timeOfLastTick = Time.time;
         _ticks -= 1;
-        target.SetHealth(target.GetHealth() - _damage);
-        if (target == Player)
+        Target.SetHealth(Target.GetHealth() - _damage);
+        if (Target == Player)
+        {
             GameLog += "You take <color=#b02323>" + _damage + "</color> points of poison damage!\n";
+        }
+
+        if (ShouldBeRemoved()) 
+            Destroy(this);
     }
 }
