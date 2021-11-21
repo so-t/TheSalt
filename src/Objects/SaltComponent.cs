@@ -7,9 +7,8 @@ public class SaltComponent : MonoBehaviour
         private int _health, _maxHealth;
         private bool _isALive;
         private PronounSet _pronounSet = new PronounSet((int) Genders.NEUTER);
-
+        
         // Public variables
-        protected Weapon Weapon;
 
         public virtual void Start() {}
 
@@ -65,16 +64,6 @@ public class SaltComponent : MonoBehaviour
         public bool GetIsAlive()
         {
                 return _isALive;
-        }
-
-        protected virtual void SetWeapon(Weapon weapon)
-        {
-                Weapon = weapon;
-        }
-
-        public Weapon GetWeapon()
-        {
-                return Weapon;
         }
 
         protected void SetPronouns(PronounSet pronouns)

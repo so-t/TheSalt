@@ -1,15 +1,17 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using static GlobalVariables;
 
 public class Character : SaltComponent
 {
     // Private Variables
-    private float t;
     
     // Public Variables
+    protected Weapon Weapon;
+    protected LinkedList<Item> Inventory = new LinkedList<Item>();
+    
     public override void Start()
     {
-        t = Time.time;
         Weapon = TheSalt.AddComponent<Weapon>();
         Weapon.SetWeaponType(Weapons.UNARMED);
     }
@@ -36,6 +38,27 @@ public class Character : SaltComponent
         if (GetHealth() <= 0) SetIsAlive(false);
     }
 
+    public void AddToInventory(Item i)
+    {
+        Inventory.AddLast(i);
+    }
 
-    public override void Update() { }
+    public bool RemoveFromInventory(Item i)
+    {
+        return Inventory.Remove(i);
+    }
+
+    protected Weapon GetWeapon()
+    {
+        return Weapon;
+    }
+
+    public void Equip(Item i)
+    {
+        if (i.GetType() == typeof(Weapon))
+            Weapon = (Weapon) i;
+    }
+
+
+    public override void Update() {}
 }

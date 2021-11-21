@@ -32,7 +32,7 @@ public class ConfirmingLocation : State
             //
             //     GameLog = "<size=16>" + string.Join(" ", chain.Chain(Rand)) + "</size>";
 
-            SceneManager.LoadScene("Scenes/Main Game Screen");
+            SceneManager.LoadScene("Scenes/Main");
             return this;
         }
 

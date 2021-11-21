@@ -3,13 +3,12 @@ using Game_Engine.World.RoomTypes;
 using UnityEngine;
 using static GlobalVariables;
 
-public class WorldBuilder
+public class Init : MonoBehaviour
 {
-       // Private variables
-       private List<Room> _rooms = new List<Room>();
+    // Private variables
+    private List<Room> _rooms = new List<Room>();
 
-       // Public variablesHandlerDrawMiniMapHandler
-       public void GenerateRoom(Map map, int x, int y)
+    private void GenerateRoom(Map map, int x, int y)
        {
            // probabilityMod is used to adjust the chances of certain conditionals over the life of this method
            var probabilityMod = 0;
@@ -128,7 +127,7 @@ public class WorldBuilder
            }
        }
 
-       public Room GetFurthestRoom(Map map, int x, int y)
+    private Room GetFurthestRoom(Map map, int x, int y)
        {
            Room room = null;
            Queue<Room> toVisit = new Queue<Room>();
@@ -147,9 +146,9 @@ public class WorldBuilder
            }
 
            return room;
-       } 
-       
-       public Map[] CreateMap()
+       }
+
+    private void CreateMap()
        {
            Map[] maps = new Map[(int) Maps.MAX_FLOOR_COUNT];
            var floorCount = 0;
@@ -201,6 +200,27 @@ public class WorldBuilder
                    CurrentRoom.GetConnection(dir).SetDiscovered(true);
                }
            }
-           return maps;
+           GameMap = maps;
        }
+
+    // Public variables
+    public TextAsset nameBases;
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        TheSalt = new GameObject();
+        Player = TheSalt.AddComponent<Character>();
+        names = nameBases.ToString().Split(',','\n');
+        CreateMap();
+        CurrentLevel = 0;
+        string title = "--- < " + CurrentRoom.GetTitle() + " >";
+        GameLog = "<color=#292b30>---<</color> " + CurrentRoom.GetTitle() + " <color=#292b30>>";
+        for (int x = title.Length; x < (int) Maps.MAX_CHAR_PER_MAIN_DISPLAY_LINE; x++)
+        {
+            GameLog += "-";
+        }
+        GameLog += "</color>\n" + CurrentRoom.GetDescription();
+
+    }
 }

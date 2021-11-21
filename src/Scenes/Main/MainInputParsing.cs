@@ -132,9 +132,8 @@ public class MainInputParsing : MonoBehaviour
                     if (obj.GetName().ToLower() != target || !obj.GetIsAlive()) continue;
                     Player.Attack(obj);
                     hasAttacked = true;
-                    if(obj.GetWeapon() != null && obj.GetIsAlive()){
+                    if(obj.GetIsAlive())
                         obj.Attack(Player);
-                    }
                 }
                 if(!hasAttacked) message += "You don't see that here.";
             }
