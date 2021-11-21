@@ -148,9 +148,11 @@ public class MainInputParsing : MonoBehaviour
                 var target = input.Split(' ').Last().ToLower();
                 
                 // For each Item in the room, we check if the name, set to lowercase, contains the input target.
-                foreach (var obj in player.Inventory.Where(obj => obj.GetName().ToLower().Contains(target)))
+                foreach (var stack in player.Inventory.Where(stack => stack.Name.ToLower().Contains(target)))
                 {
-                    player.Equip(obj);
+                    var i = stack.Items.First.Value;
+                    stack.Items.RemoveFirst();
+                    player.Equip(i);
                     break;
                 }
             }

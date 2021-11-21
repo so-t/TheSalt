@@ -61,9 +61,9 @@ public class Player : Character
                         }
 
                         GameLog += "You have:";
-                        foreach (var item in Inventory)
+                        foreach (var stack in Inventory)
                         {
-                                GameLog += "\n\t" + item.GetName();
+                                GameLog += "\n\t" + stack.Name + (stack.Items.Count > 1 ? "\tx" + stack.Items.Count : ""); 
                         }
                         return;
                 }
@@ -74,9 +74,9 @@ public class Player : Character
                         return;
                 }
 
-                foreach (var obj in Inventory.Where(obj => obj.GetName().ToLower().Contains(s)))
+                foreach (var obj in Inventory.Where(obj => obj.Name.ToLower().Contains(s)))
                 {
-                        GameLog += obj.GetDescription();
+                        GameLog += obj.Description;
                         return;
                 }
                 

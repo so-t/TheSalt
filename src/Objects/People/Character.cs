@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using static GlobalVariables;
 
 public class Character : SaltComponent
@@ -7,7 +8,7 @@ public class Character : SaltComponent
     
     // Public Variables
     protected Weapon Weapon;
-    public LinkedList<Item> Inventory = new LinkedList<Item>();
+    public LinkedList<ItemStack> Inventory = new LinkedList<ItemStack>();
     
     public override void Start()
     {
@@ -41,7 +42,22 @@ public class Character : SaltComponent
     {
         if (Location.components.Remove(i))
         {
-            Inventory.AddLast(i);
+            var addedToStack = false;
+            foreach (var stack in Inventory)
+            {
+                if (i.GetName() == stack.Name)
+                {
+                    stack.Items.AddFirst(i);
+                    addedToStack = true;
+                }
+            }
+
+            if (!addedToStack)
+            {
+                var stack = new ItemStack(i);
+                Inventory.AddLast(stack);
+            }
+            
             GameLog += "You pick up the " + i.GetName() + ".";
             return;
         }
@@ -50,10 +66,16 @@ public class Character : SaltComponent
 
     public bool RemoveFromInventory(Item i)
     {
-        var node = Inventory.Find(i);
-        if (node != null)
+        foreach (var stack in from stack in Inventory where i.GetName() == stack.Name from item in stack.Items where i == item select stack)
+        {
+            stack.Items.Remove(i);
             Location.components.AddFirst(i);
-        return Inventory.Remove(i);
+            if (stack.Items.Count == 0)
+                player.Inventory.Remove(stack);
+            return true;
+        }
+
+        return false;
     }
 
     protected Weapon GetWeapon()
