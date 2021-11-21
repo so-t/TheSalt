@@ -7,24 +7,6 @@ public class Init : MonoBehaviour
 {
     // Private variables
     private readonly List<Room> _rooms = new List<Room>();
-    
-    // Start is called before the first frame update
-    private void Start()
-    {
-        TheSalt = new GameObject();
-        player = TheSalt.AddComponent<Player>();
-        names = nameBases.ToString().Split(',','\n');
-        CreateMap();
-        CurrentLevel = 0;
-        string title = "--- < " + player.GetLocation().GetTitle() + " >";
-        GameLog = "<color=#292b30>---<</color> " + player.GetLocation().GetTitle() + " <color=#292b30>>";
-        for (int x = title.Length; x < (int) Maps.MAX_CHAR_PER_MAIN_DISPLAY_LINE; x++)
-        {
-            GameLog += "-";
-        }
-        GameLog += "</color>\n" + player.GetLocation().GetDescription();
-
-    }
 
     private void GenerateRoom(Map map, int x, int y)
        {
@@ -222,4 +204,22 @@ public class Init : MonoBehaviour
 
     // Public variables
     public TextAsset nameBases;
+    
+    // Start is called before the first frame update
+    public void Start()
+    {
+        TheSalt = new GameObject();
+        player = TheSalt.AddComponent<Player>();
+        names = nameBases.ToString().Split(',','\n');
+        CreateMap();
+        CurrentLevel = 0;
+        var title = "--- < " + player.GetLocation().GetTitle() + " >";
+        GameLog = "<color=#292b30>---<</color> " + player.GetLocation().GetTitle() + " <color=#292b30>>";
+        for (int x = title.Length; x < (int) Maps.MAX_CHAR_PER_MAIN_DISPLAY_LINE; x++)
+        {
+            GameLog += "-";
+        }
+        GameLog += "</color>\n" + player.GetLocation().GetDescription();
+
+    }
 }

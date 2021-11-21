@@ -64,18 +64,16 @@ public class MiniMapHandler : MonoBehaviour
     // Public variables
     
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         _display = gameObject.GetComponent<TMP_Text>();
     }
     
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
-        if (DoUpdateMapDisplay)
-        {
-            Draw(GameMap[CurrentLevel]);
-            DoUpdateMapDisplay = false;
-        };
+        if (!DoUpdateMapDisplay) return;
+        Draw(GameMap[CurrentLevel]);
+        DoUpdateMapDisplay = false;
     }
 }

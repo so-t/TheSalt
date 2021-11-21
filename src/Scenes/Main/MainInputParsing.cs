@@ -107,7 +107,6 @@ public class MainInputParsing : MonoBehaviour
                     player.Attack(obj);
                     if (obj.GetIsAlive())
                     {
-                        GameLog += "\n";
                         obj.Attack(player);
                     }
                     break;
