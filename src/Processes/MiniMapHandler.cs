@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using static GlobalVariables;
 
@@ -19,7 +18,7 @@ public class MiniMapHandler : MonoBehaviour
                         if(map.GetRoom(x/2, y/2) == null){
                             _display.text += " ";
                         } else {
-                            if (CurrentRoom.GetXY() == (x/2, y/2))
+                            if (player.GetLocation().GetXY() == (x/2, y/2))
                             {
                                 _display.text += "<color=red>O</color>";
                             }

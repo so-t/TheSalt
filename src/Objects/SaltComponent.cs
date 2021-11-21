@@ -9,6 +9,7 @@ public class SaltComponent : MonoBehaviour
         private PronounSet _pronounSet = new PronounSet((int) Genders.NEUTER);
         
         // Public variables
+        protected Room Location;
 
         public virtual void Start() {}
 
@@ -41,7 +42,17 @@ public class SaltComponent : MonoBehaviour
         {
                 return _health;
         }
-        
+
+        public void SetLocation(Room room)
+        {
+                Location = room;
+        }
+
+        public Room GetLocation()
+        {
+                return Location;
+        }
+
         public virtual void Attack(SaltComponent target) {}
         
         public virtual void Defend(int damage) {}
@@ -120,8 +131,6 @@ public class SaltComponent : MonoBehaviour
         {
                 return _pronounSet.ThirdPersonReflexive();
         }
-        public virtual void Update()
-        {
-        }
+        public virtual void Update() {}
 
 }

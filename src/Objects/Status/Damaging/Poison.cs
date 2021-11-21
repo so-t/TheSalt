@@ -28,7 +28,7 @@ public class Poison : Status
         _timeOfLastTick = Time.time;
         _ticks -= 1;
         Target.SetHealth(Target.GetHealth() - _damage);
-        if (Target == Player)
+        if (Target == player)
         {
             GameLog += "You take <color=#b02323>" + _damage + "</color> points of poison damage!\n";
         }

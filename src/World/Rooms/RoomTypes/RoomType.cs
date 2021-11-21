@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using static GlobalVariables;
 
@@ -10,40 +9,41 @@ public abstract class RoomType
     private Room _room;
 
     // Public Variables
-    public List<SaltComponent> Objects = new List<SaltComponent>();
+    public LinkedList<SaltComponent> components = new LinkedList<SaltComponent>();
 
-    public RoomType(Room room)
+    protected RoomType(Room room)
     {
         _room = room;
     }
-    
-    public void CreateNPC()
+
+    protected void CreateNPC()
     {
         NPC npc = TheSalt.AddComponent<NPC>();
-        npc.SetCurrentRoom(_room);
-        Objects = Objects.Prepend(npc).ToList();
+        npc.SetLocation(_room);
+        npc.SetLocation(_room);
+        components.AddFirst(npc);
         
     }
 
-    public void CreateSensoryFeature()
+    protected void CreateSensoryFeature()
     {
-        _sensoryFeature = sensoryFeatures[Rand.Next(0, (int) Arrays.SENSORY_FEATURE_ARRAY_LENGTH)];
+        _sensoryFeature = SensoryFeatures[Rand.Next(0, (int) Arrays.SENSORY_FEATURE_ARRAY_LENGTH)];
         Regex scentRegex = new Regex("#scent");
         while (scentRegex.IsMatch(_sensoryFeature))
         {
-            _sensoryFeature = scentRegex.Replace(_sensoryFeature, scents[Rand.Next(0, (int) Arrays.SCENT_ARRAY_LENGTH)], 1);
+            _sensoryFeature = scentRegex.Replace(_sensoryFeature, Scents[Rand.Next(0, (int) Arrays.SCENT_ARRAY_LENGTH)], 1);
         }
 
     }
 
-    public void CreatePhysicalFeature()
+    protected void CreatePhysicalFeature()
     {
-        _physicalFeature = physicalFeatures[Rand.Next(0, (int) Arrays.PHYSICAL_FEATURE_ARRAY_LENGTH)];
+        _physicalFeature = PhysicalFeatures[Rand.Next(0, (int) Arrays.PHYSICAL_FEATURE_ARRAY_LENGTH)];
         Regex materialRegex = new Regex("#material");
         Regex colorRegex = new Regex("#color");
         while (materialRegex.IsMatch(_physicalFeature))
         {
-            string material = materials[Rand.Next(0, (int) Arrays.MATERIALS_ARRAY_LENGTH)];
+            string material = Materials[Rand.Next(0, (int) Arrays.MATERIALS_ARRAY_LENGTH)];
             _physicalFeature = materialRegex.Replace(_physicalFeature, material, 1);
         }
         while (colorRegex.IsMatch(_physicalFeature))

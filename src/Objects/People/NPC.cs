@@ -9,7 +9,6 @@ public class NPC : Character
     // Private Variables
     private int _origin, _gender, _gearLocation, _tattooLocation, _gear;
     private bool _hasTattoo, _hasGear;
-    private Room _currentRoom;
     private float _timeOfLastAction;
     private const float MinTimeTimeBetweenActions = 30.0f;
 
@@ -18,17 +17,17 @@ public class NPC : Character
         List<int> connections = new List<int>();
         for (var dir = (int) Directions.NORTH; dir < 4; dir++)
         {
-            if (_currentRoom.HasConnection(dir)) connections.Add(dir);
+            if (Location.HasConnection(dir)) connections.Add(dir);
         }
 
         int direction = connections[Rand.Next(connections.Count)];
 
-        if (_currentRoom == CurrentRoom)
+        if (Location == player.GetLocation())
         {
-            _currentRoom.Objects.Remove(this);
-            _currentRoom = _currentRoom.GetConnection(direction);
-            _currentRoom.Objects.Add(this);
-            GameLog += "<color=#292b30>" + GetName() + " heads ";
+            Location.components.Remove(this);
+            Location = Location.GetConnection(direction);
+            Location.components.AddFirst(this);
+            GameLog += "\n<color=#292b30>" + GetName() + " heads ";
             switch (direction)
             {
                 case (int) Directions.NORTH:
@@ -46,12 +45,12 @@ public class NPC : Character
             }
             GameLog += "</color>";
         } 
-        else if (_currentRoom.GetConnection(direction) == CurrentRoom)
+        else if (Location.GetConnection(direction) == player.GetLocation())
         {
-            _currentRoom.Objects.Remove(this);
-            _currentRoom = _currentRoom.GetConnection(direction);
-            _currentRoom.Objects.Add(this);
-            GameLog += "<color=#292b30>" + GetName() + " arrives from the ";
+            Location.components.Remove(this);
+            Location = Location.GetConnection(direction);
+            Location.components.AddFirst(this);
+            GameLog += "\n<color=#292b30>" + GetName() + " arrives from the ";
             switch (direction)
             {
                 case (int) Directions.NORTH:
@@ -70,8 +69,7 @@ public class NPC : Character
             GameLog += "</color>";
         }
     }
-
-
+    
     // TODO Fix: Currently if an object/NPC spawns in the starting room it will not return the correct description for the intro room message
     // Public Variables
     public override void Start()
@@ -114,7 +112,7 @@ public class NPC : Character
         
         var description = char.ToUpper( GetThirdPersonSubjective()[0]) + GetThirdPersonSubjective().Substring(1)
                                                                         + (_gender == (int) Genders.EPICENE ? " appear" : " appears") + " to be from " 
-                                                                        + origins[_origin] 
+                                                                        + GlobalVariables.Origins[_origin] 
                                                                         + ".";
         if (_hasTattoo)
             description += " " 
@@ -124,17 +122,17 @@ public class NPC : Character
                            + " on " 
                            + GetThirdPersonDependentPossessive()
                            + " " 
-                           + tattooLocations[_tattooLocation] 
+                           + TattooLocations[_tattooLocation] 
                            + ".";
 
         if (_hasGear)
             description += " "
                            + char.ToUpper(GetThirdPersonSubjective()[0]) + GetThirdPersonSubjective().Substring(1)
                            + (_gender == (int) Genders.EPICENE ? " carry a " : " carries a ")
-                           + items[_gear]
+                           + Items[_gear]
                            + (_gearLocation == (int) EquipmentSlots.BACKSTRAP ? 
-                               " strapped to " + GetThirdPersonDependentPossessive() + " " + itemLocations[_gearLocation] 
-                               : " in " + GetThirdPersonDependentPossessive() + " " + itemLocations[_gearLocation])
+                               " strapped to " + GetThirdPersonDependentPossessive() + " " + ItemLocations[_gearLocation] 
+                               : " in " + GetThirdPersonDependentPossessive() + " " + ItemLocations[_gearLocation])
                            + ".";
             
         SetDescription(description);
@@ -144,18 +142,8 @@ public class NPC : Character
     {
         int damage = Rand.Next(1, GetWeapon().GetDamage());
         target.Defend(damage);
-        if(target == Player)
+        if(target == player)
             GameLog += "\n" + GetName() + " attacks you for " + damage + " points of damage!";
-    }
-    
-    public void SetCurrentRoom(Room room)
-    {
-        _currentRoom = room;
-    }
-
-    public Room GetCurrentRoom()
-    {
-        return _currentRoom;
     }
     
     public override void Update()

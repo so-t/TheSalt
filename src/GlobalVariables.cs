@@ -1,18 +1,19 @@
-﻿using UnityEngine;
+﻿using System.Diagnostics.CodeAnalysis;
+using UnityEngine;
 using Random = System.Random;
 
+[SuppressMessage("ReSharper", "StringLiteralTypo")]
 public static class GlobalVariables
 {
     public static GameObject TheSalt;
     public static int PlayerOrigin, GameRegion, CurrentLevel;
     public static string GameLog;
     public static Map[] GameMap = new Map[5];
-    public static Room CurrentRoom = null;
-    public static Random Rand = new Random();
-    public static Character Player;
+    public static readonly Random Rand = new Random();
+    public static Player player;
     public static bool DoUpdateMapDisplay = true, DoUpdateLogDisplay = true, DoSetDisplayAlignmentMiddle = false, DoSetDisplayAlignmentTop = false;
 
-    public static string[] items = 
+    public static readonly string[] Items = 
     {
         "quarterstaff",
         "soldier's spear",
@@ -41,13 +42,13 @@ public static class GlobalVariables
         "orb"
     };
 
-    public static string[] itemLocations = {
+    public static readonly string[] ItemLocations = {
         "right hand",
         "left hand",
         "back"
     };
 
-    public static string[] tattooLocations = {
+    public static readonly string[] TattooLocations = {
         "left arm",
         "right arm", 
         "left leg", 
@@ -66,7 +67,7 @@ public static class GlobalVariables
         "legs"
     };
 
-    public static string[] origins = 
+    public static readonly string[] Origins = 
     {
         "Imperial",
         "Orelander",
@@ -80,7 +81,7 @@ public static class GlobalVariables
         "the Jackals"
     };
 
-    public static string[] physicalFeatures =
+    public static readonly string[] PhysicalFeatures =
     {
         "\nSunlight filters in through small holes and cracks in the walls and ceiling.\n",
         "\nThe room is small, you have to duck through the doorframe to avoid hitting your head.\n",
@@ -107,7 +108,7 @@ public static class GlobalVariables
         "\nThere's a large puddle in the center of the room, 1d6 inches deep.\n"
     };
 
-    public static string[] sensoryFeatures =
+    public static readonly string[] SensoryFeatures =
     {
         "\nThe area is<color=#D6ECEF> frigid</color>, but you're able to bear it.\n",
         "\nThe area is filled with warm, stagnant air.\n",
@@ -121,7 +122,7 @@ public static class GlobalVariables
         "\nThere is a constant scraping sound from behind the walls. You're unable to discern its origin.\n"
     };
     
-    public static string[] materials =
+    public static readonly string[] Materials =
     {
         "iron",
         "some sort of strange metal",
@@ -134,7 +135,7 @@ public static class GlobalVariables
         
     };
 
-    public static string[] scents =
+    public static readonly string[] Scents =
     {
         "fish",
         "ash",

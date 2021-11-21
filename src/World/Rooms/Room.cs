@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Game_Engine.World.RoomTypes;
 
 public class Room : SaltComponent
 {
@@ -10,28 +8,29 @@ public class Room : SaltComponent
     private Room _north, _east, _south, _west, _up, _down;
     private bool _visited, _discovered;
 
+    private string GetPhysicalFeature()
+    {
+        return _roomType.GetPhysicalFeature();
+    }
+
+    private string GetSensoryFeature()
+    {
+        return _roomType.GetSensoryFeature();
+    }
+
     // Public variables
+    public LinkedList<SaltComponent> components;
+    
     public void Init(int x, int y)
     {
         _x = x;
         _y = y;
     }
-    
-    public List<SaltComponent> Objects;
-
-    public string GetPhysicalFeature()
-    {
-        return _roomType.GetPhysicalFeature();
-    }    
-    
-    public string GetSensoryFeature()
-    {
-        return _roomType.GetSensoryFeature();
-    }
 
     public void SetRoomType(RoomType type)
     {
         _roomType = type;
+        components = _roomType.components;
     }
 
     public RoomType GetRoomType()
@@ -193,10 +192,15 @@ public class Room : SaltComponent
         }
         if(HasConnection((int) Directions.DOWN) || HasConnection((int) Directions.UP)) retVal += "\nThere is a <color=#292b30>staircase</color> leading " + (HasConnection((int) Directions.DOWN) ? "<color=#292b30>further below</color>.": "<color=#292b30>up</color>.") ;
 
-        foreach (SaltComponent obj in Objects)
+        retVal += "\n";
+        foreach (var obj in components)
         {
-            retVal += "\n\nYou see " + obj.GetName() + " here. " + obj.GetDescription();
-        };
+            var type = obj.GetType();
+            if (type == typeof(Character) || type == typeof(NPC))
+                retVal += "\n" + obj.GetName() + " is here.\n";
+            else if (type == typeof(Item) || type == typeof(Weapon))
+                retVal += "\nThere is a " + obj.GetName() + " here.\n";
+        }
         
         return retVal;
     }

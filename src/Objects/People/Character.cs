@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using static GlobalVariables;
 
 public class Character : SaltComponent
@@ -8,7 +7,7 @@ public class Character : SaltComponent
     
     // Public Variables
     protected Weapon Weapon;
-    protected LinkedList<Item> Inventory = new LinkedList<Item>();
+    public LinkedList<Item> Inventory = new LinkedList<Item>();
     
     public override void Start()
     {
@@ -26,7 +25,7 @@ public class Character : SaltComponent
         {
             int damage = Rand.Next(1, GetWeapon().GetDamage());
             target.Defend(damage);
-            GameLog += "\nYou attack " + target.GetName() + " for " + damage + " points of damage" +
+            GameLog += "You attack " + target.GetName() + " for " + damage + " points of damage" +
                    (target.GetIsAlive() ? "!" : ", finishing " + target.GetThirdPersonObjective() + "!");
         }
         
@@ -40,11 +39,20 @@ public class Character : SaltComponent
 
     public void AddToInventory(Item i)
     {
-        Inventory.AddLast(i);
+        if (Location.components.Remove(i))
+        {
+            Inventory.AddLast(i);
+            GameLog += "You pick up the " + i.GetName() + ".";
+            return;
+        }
+        GameLog += "You don't see that item here.";
     }
 
     public bool RemoveFromInventory(Item i)
     {
+        var node = Inventory.Find(i);
+        if (node != null)
+            Location.components.AddFirst(i);
         return Inventory.Remove(i);
     }
 
@@ -56,9 +64,11 @@ public class Character : SaltComponent
     public void Equip(Item i)
     {
         if (i.GetType() == typeof(Weapon))
+        {
             Weapon = (Weapon) i;
+            GameLog += "You equip the " + i.GetName() + ".";
+        }
     }
-
 
     public override void Update() {}
 }
