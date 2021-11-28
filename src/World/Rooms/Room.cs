@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using static GlobalVariables;
 
 public class Room : SaltComponent
 {
@@ -31,16 +32,23 @@ public class Room : SaltComponent
     {
         _roomType = type;
         components = _roomType.components;
+        
+        Weapon w = TheSalt.AddComponent<Weapon>();
+        w.SetWeaponType(Weapons.QUARTERSTAFF);
+        Weapon u = TheSalt.AddComponent<Weapon>();
+        u.SetWeaponType(Weapons.QUARTERSTAFF);
+        Weapon v = TheSalt.AddComponent<Weapon>();
+        v.SetWeaponType(Weapons.BLACKSMITHS_HAMMER);
+        Antidote a = TheSalt.AddComponent<Antidote>();
+        AddSaltComponent(a);
+        AddSaltComponent(w);
+        AddSaltComponent(u);
+        AddSaltComponent(v);
     }
 
     public RoomType GetRoomType()
     {
         return _roomType;
-    }
-    
-    public void SetXY(int x, int y){
-        _x = x;
-        _y = y;
     }
 
     public (int, int) GetXY(){
@@ -192,17 +200,25 @@ public class Room : SaltComponent
         }
         if(HasConnection((int) Directions.DOWN) || HasConnection((int) Directions.UP)) retVal += "\nThere is a <color=#292b30>staircase</color> leading " + (HasConnection((int) Directions.DOWN) ? "<color=#292b30>further below</color>.": "<color=#292b30>up</color>.") ;
 
-        retVal += "\n";
+        retVal += "\n\n";
         foreach (var obj in components)
         {
             var type = obj.GetType();
             if (type == typeof(Character) || type == typeof(NPC))
-                retVal += "\n" + obj.GetName() + " is here.\n";
-            else if (type == typeof(Item) || type == typeof(Weapon))
-                retVal += "\nThere is a " + obj.GetName() + " here.\n";
+                retVal += obj.GetName() + " is here.\n";
+            else
+                retVal += "There is a " + obj.GetName() + " here.\n";
         }
         
         return retVal;
+    }
+
+    public void AddSaltComponent(SaltComponent s)
+    {
+        if (s.GetType() == typeof(NPC))
+            components.AddFirst(s);
+        else
+            components.AddLast(s);
     }
 }
     

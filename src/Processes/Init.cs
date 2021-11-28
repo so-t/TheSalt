@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Game_Engine.World.RoomTypes;
 using UnityEngine;
 using static GlobalVariables;
 
@@ -78,7 +77,7 @@ public class Init : MonoBehaviour
 
            // Generate neighbor rooms
            // neighborCount is used to keep track of how many neighboring rooms are generated over the life of this method
-           int neighborCount = 0;
+           var neighborCount = 0;
            while(neighborCount <= 4 && map.GetRoomCount() < (int) Maps.MAX_ROOM_COUNT && probabilityMod <= 100 - (int) Maps.ROOM_CREATION_PROBABILITY_BASELINE){
                switch(Rand.Next(0,4)){
                    case (int) Directions.NORTH:
@@ -150,7 +149,7 @@ public class Init : MonoBehaviour
 
     private void CreateMap()
        {
-           Map[] maps = new Map[(int) Maps.MAX_FLOOR_COUNT];
+           var maps = new Map[(int) Maps.MAX_FLOOR_COUNT];
            var floorCount = 0;
            var x = (int) Maps.MAP_WIDTH / 2 - 1;
            var y = (int) Maps.MAP_HEIGHT / 2 - 1;
@@ -206,20 +205,29 @@ public class Init : MonoBehaviour
     public TextAsset nameBases;
     
     // Start is called before the first frame update
-    public void Start()
+    public void Awake()
     {
         TheSalt = new GameObject();
         player = TheSalt.AddComponent<Player>();
         names = nameBases.ToString().Split(',','\n');
+        foreach (var s in names)
+        {
+            NameChain.Add(s, weight: 1);
+        }
         CreateMap();
         CurrentLevel = 0;
+    }
+
+    public void Start()
+    {
         var title = "--- < " + player.GetLocation().GetTitle() + " >";
         GameLog = "<color=#292b30>---<</color> " + player.GetLocation().GetTitle() + " <color=#292b30>>";
-        for (int x = title.Length; x < (int) Maps.MAX_CHAR_PER_MAIN_DISPLAY_LINE; x++)
+        for (var x = title.Length; x < (int) Maps.MAX_CHAR_PER_MAIN_DISPLAY_LINE; x++)
         {
             GameLog += "-";
         }
-        GameLog += "</color>\n" + player.GetLocation().GetDescription();
-
+        GameLog += "</color>\n";
+        
+        player.Look();
     }
 }

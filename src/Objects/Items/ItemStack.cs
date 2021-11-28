@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 public class ItemStack
 {
@@ -13,5 +14,17 @@ public class ItemStack
                 Name = i.GetName();
                 Description = i.GetDescription();
                 Items.AddFirst(i);
+        }
+
+        public Item Get()
+        {
+                var i = Items.First();
+                Items.RemoveFirst();
+                return i;
+        }
+
+        public int Count()
+        {
+                return Items.Count;
         }
 }

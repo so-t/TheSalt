@@ -72,22 +72,17 @@ public class NPC : Character
     
     // TODO Fix: Currently if an object/NPC spawns in the starting room it will not return the correct description for the intro room message
     // Public Variables
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
+        base.Awake();
         _timeOfLastAction = Rand.Next(0, 21) + Time.time;
         _origin = Rand.Next(0, (int) Arrays.ORIGIN_ARRAY_LENGTH);
         
         /* Begin Markov Chain for Name Creation */
-        var chain = new MarkovChain<char>(3);
-        foreach (var s in names)
-        {
-            chain.Add(s, weight: 1);
-        }
         char[] n;
         do
         {
-            n = chain.Chain(Rand).ToArray();
+            n = NameChain.Chain(Rand).ToArray();
         } while (n.Length > 7);
         n[0] = char.ToUpper(n[0]);
         SetName(new string(n));

@@ -1,34 +1,29 @@
 ﻿using System;
 using static GlobalVariables;
-
-namespace Game_Engine.World.RoomTypes
-{
-    public class Staircase : RoomType
+public class Staircase : RoomType
+{ 
+    // Private Variables
+    private string _title = "A Staircase";
+    
+    // Public Variables
+    public Staircase(Room room) : base(room)
     {
-        // Private Variables
-        private string _title = "A Staircase";
-        
-        // Public Variables
-
-        public Staircase(Room room) : base(room)
+        if (Rand.Next(0, 101) <= 33)
         {
-            if (Rand.Next(0, 101) <= 33)
-            {
-                CreateNPC();
-            }
-            if (Rand.Next(0, 101) <= 33)
-            {
-                CreatePhysicalFeature();
-            }
-            if (Rand.Next(0, 101) <= 33)
-            {
-                CreateSensoryFeature();
-            }
+            CreateNPC();
         }
-
-        public override string GetTitle()
+        if (Rand.Next(0, 101) <= 33)
         {
-            return _title;
+            CreatePhysicalFeature();
         }
+        if (Rand.Next(0, 101) <= 33)
+        {
+            CreateSensoryFeature();
+        }
+    }
+
+    public override string GetTitle()
+    {
+        return _title;
     }
 }

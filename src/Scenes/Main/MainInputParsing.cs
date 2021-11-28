@@ -12,7 +12,7 @@ public class MainInputParsing : MonoBehaviour
     public TMP_Text display;
     
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         inputField = gameObject.GetComponent<TMP_InputField>();
         var submit = new TMP_InputField.SubmitEvent();
@@ -75,7 +75,7 @@ public class MainInputParsing : MonoBehaviour
         // "Look" on it's own will display the full description of the current room.
         else if(Regex.IsMatch(input, "^[Ll]ook"))
         {
-            if(Regex.IsMatch(input, "^[Ll]ook(&|[Aa]round|(.*)[Rr]oom)*$")){
+            if(Regex.IsMatch(input, "^[Ll]ook ?(&|[Aa]round|(.*)[Rr]oom)*$")){
                 player.Look();
             }
             else
@@ -118,7 +118,7 @@ public class MainInputParsing : MonoBehaviour
         // Inputs starting with "Take" handled here
         else if (Regex.IsMatch(input, "^[Tt]ake"))
         {
-            if (Regex.IsMatch(input, "^[Tt]ake$"))
+            if (Regex.IsMatch(input, "^[Tt]ake ?$"))
             {
                 GameLog += "Take what?";
             }
@@ -127,7 +127,7 @@ public class MainInputParsing : MonoBehaviour
                 var target = input.Split(' ').Last().ToLower();
                 
                 // For each Item in the room, we check if the name, set to lowercase, contains the input target.
-                foreach (var obj in player.GetLocation().components.Where(obj => obj.GetType() == typeof(Item) || obj.GetType() == typeof(Weapon) || obj.GetName().ToLower().Contains(target)))
+                foreach (var obj in player.GetLocation().components.Where(obj => (obj.GetType() == typeof(Item) || obj.GetType() == typeof(Weapon) || obj.GetType() == typeof(Consumable) || obj.GetType() == typeof(Antidote)) && obj.GetName().ToLower().Contains(target)))
                 {
                     player.AddToInventory((Item) obj);
                     break;
@@ -138,7 +138,7 @@ public class MainInputParsing : MonoBehaviour
         // Inputs starting with "Equip" handled here
         else if (Regex.IsMatch(input, "^[Ee]quip"))
         {
-            if (Regex.IsMatch(input, "^[Ee]quip$"))
+            if (Regex.IsMatch(input, "^[Ee]quip ?$"))
             {
                 GameLog += "Equip what?";
             }
@@ -156,6 +156,31 @@ public class MainInputParsing : MonoBehaviour
                 }
             }
         }
+        
+        // Inputs starting with "Use" handled here
+        else if (Regex.IsMatch(input, "^[Uu]se"))
+        {
+            if (Regex.IsMatch(input, "^[Uu]se ?$"))
+            {
+                GameLog += "Use what?";
+            }
+            else if(Regex.IsMatch(input, " (.*)$")){
+                // Make a copy of the user-entered target and set to lowercase
+                var target = input.Split(' ').Last().ToLower();
+                
+                // For each Item in the room, we check if the name, set to lowercase, contains the input target.
+                foreach (var stack in player.Inventory.Where(stack => stack.Name.ToLower().Contains(target)))
+                {
+                    var i = stack.Get();
+
+                    if (stack.Count() == 0)
+                        player.Inventory.Remove(stack);
+                        
+                    player.Use((Consumable) i);
+                    break;
+                }
+            }
+        }
     }
 
     private void Submit(string str)
@@ -163,6 +188,5 @@ public class MainInputParsing : MonoBehaviour
         ParseInput(str);
         inputField.SetTextWithoutNotify("");
         inputField.ActivateInputField();
-
     }
 }

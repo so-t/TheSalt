@@ -11,9 +11,9 @@ public class MiniMapHandler : MonoBehaviour
     {
         _display.text = "";
 
-        for(int y = (int) Maps.MAP_HEIGHT*2-2; y >= 0; y--){
+        for(var y = (int) Maps.MAP_HEIGHT*2-2; y >= 0; y--){
             if(y % 2 == 0){
-                for(int x = 0; x < (int) Maps.MAP_WIDTH*2-1; x++){
+                for(var x = 0; x < (int) Maps.MAP_WIDTH*2-1; x++){
                     if(x % 2 == 0){
                         if(map.GetRoom(x/2, y/2) == null){
                             _display.text += " ";
@@ -64,7 +64,7 @@ public class MiniMapHandler : MonoBehaviour
     // Public variables
     
     // Start is called before the first frame update
-    public void Start()
+    public void Awake()
     {
         _display = gameObject.GetComponent<TMP_Text>();
     }

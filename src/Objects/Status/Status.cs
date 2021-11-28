@@ -8,10 +8,12 @@
     protected SaltComponent Target;
     protected bool Initialized = false;
     
-    public virtual bool ShouldBeRemoved ()
+    public virtual bool ShouldBeRemoved()
     {
         return false;
     }
+
+    public virtual void Combine(Status s) {}
 
     public override void Update()
     {

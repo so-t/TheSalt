@@ -27,7 +27,7 @@ public abstract class RoomType
 
     protected void CreateSensoryFeature()
     {
-        _sensoryFeature = SensoryFeatures[Rand.Next(0, (int) Arrays.SENSORY_FEATURE_ARRAY_LENGTH)];
+        _sensoryFeature =  "\n" + SensoryFeatures[Rand.Next(0, (int) Arrays.SENSORY_FEATURE_ARRAY_LENGTH)];
         Regex scentRegex = new Regex("#scent");
         while (scentRegex.IsMatch(_sensoryFeature))
         {
@@ -38,7 +38,7 @@ public abstract class RoomType
 
     protected void CreatePhysicalFeature()
     {
-        _physicalFeature = PhysicalFeatures[Rand.Next(0, (int) Arrays.PHYSICAL_FEATURE_ARRAY_LENGTH)];
+        _physicalFeature = "\n" + PhysicalFeatures[Rand.Next(0, (int) Arrays.PHYSICAL_FEATURE_ARRAY_LENGTH)];
         Regex materialRegex = new Regex("#material");
         Regex colorRegex = new Regex("#color");
         while (materialRegex.IsMatch(_physicalFeature))

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using static GlobalVariables;
+
 public class Player : Character
 {
         // Private Variables
@@ -80,6 +81,6 @@ public class Player : Character
                         return;
                 }
                 
-                GameLog += "\nYou don't see that here.";
+                GameLog += "You don't see that here.";
         }
 }

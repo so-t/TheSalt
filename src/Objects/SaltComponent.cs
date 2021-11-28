@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class SaltComponent : MonoBehaviour
 {
@@ -7,13 +10,16 @@ public class SaltComponent : MonoBehaviour
         private int _health, _maxHealth;
         private bool _isALive;
         private PronounSet _pronounSet = new PronounSet((int) Genders.NEUTER);
+        private LinkedList<Status> _status = new LinkedList<Status>();
         
         // Public variables
         protected Room Location;
+        
+        public virtual void Awake() {}
 
         public virtual void Start() {}
 
-        protected void SetName(string s)
+        public void SetName(string s)
         {
                 _name = s;
         }
@@ -75,6 +81,32 @@ public class SaltComponent : MonoBehaviour
         public bool GetIsAlive()
         {
                 return _isALive;
+        }
+
+        public void AddStatus(Status s)
+        {
+                foreach (var status in _status.Where(status => s.GetType() == status.GetType()))
+                {
+                        status.Combine(s);
+                        return;
+                }
+
+                _status.AddFirst(s);
+        }
+
+        public void RemoveStatus(Type type)
+        {
+                foreach (var status in _status.Where(status => status.GetType() == type))
+                {
+                        _status.Remove(status);
+                        Destroy(status);
+                        return;
+                }
+        }
+
+        public void Use(Consumable c)
+        {
+                c.Use(this);
         }
 
         protected void SetPronouns(PronounSet pronouns)

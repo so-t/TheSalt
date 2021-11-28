@@ -10,7 +10,7 @@ public class Character : SaltComponent
     protected Weapon Weapon;
     public LinkedList<ItemStack> Inventory = new LinkedList<ItemStack>();
     
-    public override void Start()
+    public override void Awake()
     {
         Weapon = TheSalt.AddComponent<Weapon>();
         Weapon.SetWeaponType(Weapons.UNARMED);
@@ -43,13 +43,10 @@ public class Character : SaltComponent
         if (Location.components.Remove(i))
         {
             var addedToStack = false;
-            foreach (var stack in Inventory)
+            foreach (var stack in Inventory.Where(stack => i.GetName() == stack.Name))
             {
-                if (i.GetName() == stack.Name)
-                {
-                    stack.Items.AddFirst(i);
-                    addedToStack = true;
-                }
+                stack.Items.AddFirst(i);
+                addedToStack = true;
             }
 
             if (!addedToStack)
@@ -69,7 +66,7 @@ public class Character : SaltComponent
         foreach (var stack in from stack in Inventory where i.GetName() == stack.Name from item in stack.Items where i == item select stack)
         {
             stack.Items.Remove(i);
-            Location.components.AddFirst(i);
+            Location.AddSaltComponent(i);
             if (stack.Items.Count == 0)
                 player.Inventory.Remove(stack);
             return true;
