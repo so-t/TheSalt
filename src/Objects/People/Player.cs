@@ -40,7 +40,7 @@ public class Player : Character
                         {
                                 GameLog += "-";
                         }
-                        GameLog += "</color>\n" + player.GetLocation().GetDescription();
+                        GameLog += "</color>\n\n" + player.GetLocation().GetDescription();
                 } else {
                         GameLog += "There is no path in that direction!";
                 }

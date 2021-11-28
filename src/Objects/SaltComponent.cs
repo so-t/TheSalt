@@ -10,19 +10,17 @@ public class SaltComponent : MonoBehaviour
         private int _health, _maxHealth;
         private bool _isALive;
         private PronounSet _pronounSet = new PronounSet((int) Genders.NEUTER);
-        private LinkedList<Status> _status = new LinkedList<Status>();
+        private readonly LinkedList<Status> _status = new LinkedList<Status>();
         
         // Public variables
         protected Room Location;
-        
-        public virtual void Awake() {}
 
-        public virtual void Start() {}
-
-        public void SetName(string s)
+        protected void SetName(string s)
         {
                 _name = s;
         }
+        
+        public virtual void Awake() {}
 
         public string GetName()
         {

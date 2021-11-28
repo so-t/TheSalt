@@ -226,7 +226,7 @@ public class Init : MonoBehaviour
         {
             GameLog += "-";
         }
-        GameLog += "</color>\n";
+        GameLog += "</color>\n\n";
         
         player.Look();
     }

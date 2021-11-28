@@ -156,10 +156,15 @@ public class Room : SaltComponent
 
     public override string GetDescription()
     {
-        var retVal = GetPhysicalFeature() + GetSensoryFeature();
+        var retVal = GetPhysicalFeature();
+        if (GetPhysicalFeature() != "")
+            retVal += "\n";
+        retVal += GetSensoryFeature();
+        if (GetSensoryFeature() != "")
+            retVal += "\n";
         if(GetConnectionCount() > 0){
             if(GetConnectionCount() == 1){
-                retVal += "\nThere is an exit to the ";
+                retVal += "There is an exit to the ";
                 if(HasConnection((int) Directions.NORTH)){
                     retVal += "<color=#292b30><b>North</color></b>.";
                 } else if (HasConnection((int) Directions.EAST)){
@@ -170,7 +175,7 @@ public class Room : SaltComponent
                     retVal += "<color=#292b30><b>West</color></b>.";
                 }
             } else {
-                retVal += "\nThere are exits to the ";
+                retVal += "There are exits to the ";
                 int count = 0;
                 for (int i = 0; i < (int) Maps.MAX_HORIZONTAL_CONNECTION_COUNT; i++){
                     if(count == GetConnectionCount()-1 && HasConnection(i)){
@@ -198,7 +203,7 @@ public class Room : SaltComponent
                 }
             }
         }
-        if(HasConnection((int) Directions.DOWN) || HasConnection((int) Directions.UP)) retVal += "\nThere is a <color=#292b30>staircase</color> leading " + (HasConnection((int) Directions.DOWN) ? "<color=#292b30>further below</color>.": "<color=#292b30>up</color>.") ;
+        if(HasConnection((int) Directions.DOWN) || HasConnection((int) Directions.UP)) retVal += "There is a <color=#292b30>staircase</color> leading " + (HasConnection((int) Directions.DOWN) ? "<color=#292b30>further below</color>.": "<color=#292b30>up</color>.") ;
 
         retVal += "\n\n";
         foreach (var obj in components)

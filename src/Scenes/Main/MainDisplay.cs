@@ -7,19 +7,19 @@ using static GlobalVariables;
 public class MainDisplay : MonoBehaviour
 {
     // Private Variables
-    private List<string> EventLog = new List<string>();
+    private readonly List<string> _eventLog = new List<string>();
 
     private void AddEvent(string eventString){
         if (DoUpdateLogDisplay)
         {
-            EventLog.Clear();
+            _eventLog.Clear();
             DoUpdateLogDisplay = false;
         }
-        EventLog.Add(eventString);
+        _eventLog.Add(eventString);
         
         log.text = string.Empty;
 
-        foreach (string logEvent in EventLog) {
+        foreach (string logEvent in _eventLog) {
             log.text += logEvent;
             log.text += "\n";
         }
@@ -32,14 +32,6 @@ public class MainDisplay : MonoBehaviour
     public TMP_Text log;
     public ScrollRect scrollRect;
     
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-
-    // Update is called once per frame
     void Update()
     {
         if (GameLog == "") return;

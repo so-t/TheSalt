@@ -85,43 +85,43 @@ public static class GlobalVariables
 
     public static readonly string[] PhysicalFeatures =
     {
-        "\nSunlight filters in through small holes and cracks in the walls and ceiling.\n",
-        "\nThe room is small, you have to duck through the doorframe to avoid hitting your head.\n",
-        "\nThe room is large.\n",
-        "\nThe room is cavernous.\n",
-        "\nThe room is dimly lit by torchlight.\n",
-        "\nThe room has a dilapidated light fixture suspended from the ceiling, seemingly repaired by another traveler, proving a modest amount of light.\n",
-        "\nThe room is unlit.\n",
-        "\nThe room has walls covered in #colorvines</color> that creep upward in hope of finding light. They bare #colorflowers</color>.\n",
-        "\nA short grass grows underfoot, dappled with #colorweeds</color>.\n",
-        "\nThe traces of a small fire still remain singed to the walls.\n",
-        "\nA few animal bones rest in a pile, all picked clean.\n",
-        "\nIndecipherable runes are carved into the walls, and staring at them too long gives you a headache.\n",
-        "\nDiminutive salt crystals line the corners of the ceiling. they are worth nothing, but provide a bit of light by which to see.\n",
-        "\nA few stones of varying sizes are piled up by the far wall, seemingly for no reason.\n",
-        "\nA shattered dagger lays next to the old remains of some beast.\n",
-        "\nThe ceiling above you is domed, and #colorpainted</color>.\n",
-        "\nThere is a crack in the ceiling, and you can just barely see Peria's rings overhead.\n",
-        "\nThe walls are made of #material.\n",
-        "\nThe floors and walls are lined with #color#material</color> tiles.\n",
-        "\nThe walls are covered in #colorgraffiti</color>.\n",
-        "\nLined up against the walls are all manner of crates, their contents plundered long ago.\n",
-        "\nThe entire room is overgrown with #colorfoliage</color>, but not so densely that you can't navigate it.\n",
-        "\nThere's a large puddle in the center of the room, 1d6 inches deep.\n"
+        "Sunlight filters in through small holes and cracks in the walls and ceiling.\n",
+        "The room is small, you have to duck through the doorframe to avoid hitting your head.\n",
+        "The room is large.\n",
+        "The room is cavernous.\n",
+        "The room is dimly lit by torchlight.\n",
+        "The room has a dilapidated light fixture suspended from the ceiling, seemingly repaired by another traveler, proving a modest amount of light.\n",
+        "The room is unlit.\n",
+        "The room has walls covered in #colorvines</color> that creep upward in hope of finding light. They bare #colorflowers</color>.\n",
+        "A short grass grows underfoot, dappled with #colorweeds</color>.\n",
+        "The traces of a small fire still remain singed to the walls.\n",
+        "A few animal bones rest in a pile, all picked clean.\n",
+        "Indecipherable runes are carved into the walls, and staring at them too long gives you a headache.\n",
+        "Diminutive salt crystals line the corners of the ceiling. they are worth nothing, but provide a bit of light by which to see.\n",
+        "A few stones of varying sizes are piled up by the far wall, seemingly for no reason.\n",
+        "A shattered dagger lays next to the old remains of some beast.\n",
+        "The ceiling above you is domed, and #colorpainted</color>.\n",
+        "There is a crack in the ceiling, and you can just barely see Peria's rings overhead.\n",
+        "The walls are made of #material.\n",
+        "The floors and walls are lined with #color#material</color> tiles.\n",
+        "The walls are covered in #colorgraffiti</color>.\n",
+        "Lined up against the walls are all manner of crates, their contents plundered long ago.\n",
+        "The entire room is overgrown with #colorfoliage</color>, but not so densely that you can't navigate it.\n",
+        "There's a large puddle in the center of the room, 1d6 inches deep.\n"
     };
 
     public static readonly string[] SensoryFeatures =
     {
-        "\nThe area is<color=#D6ECEF> frigid</color>, but you're able to bear it.\n",
-        "\nThe area is filled with warm, stagnant air.\n",
-        "\nThe area smells vaguely of #scent.\n",
-        "\nThe area smells strongly of #scent.\n",
-        "\nIt seems <color=#D6ECEF>colder</color> here.\n",
-        "\nThe air here is balmy.\n",
-        "\nThis chamber is echoey, your own voice calls out back to you.\n",
-        "\nWhile here, you feel on edge.\n",
-        "\nYou cannot shake the feeling that there is someone behind you, even when there isn't.\n",
-        "\nThere is a constant scraping sound from behind the walls. You're unable to discern its origin.\n"
+        "The area is<color=#D6ECEF> frigid</color>, but you're able to bear it.\n",
+        "The area is filled with warm, stagnant air.\n",
+        "The area smells vaguely of #scent.\n",
+        "The area smells strongly of #scent.\n",
+        "It seems <color=#D6ECEF>colder</color> here.\n",
+        "The air here is balmy.\n",
+        "This chamber is echoey, your own voice calls out back to you.\n",
+        "While here, you feel on edge.\n",
+        "You cannot shake the feeling that there is someone behind you, even when there isn't.\n",
+        "There is a constant scraping sound from behind the walls. You're unable to discern its origin.\n"
     };
     
     public static readonly string[] Materials =

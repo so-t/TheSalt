@@ -23,7 +23,7 @@ public class MainInputParsing : MonoBehaviour
 
     void ParseInput(string input)
     {
-        GameLog += "\n\n<color=#292b30>" + input + "</color>\n";
+        GameLog += "\n<color=#292b30>" + input + "</color>\n";
 
         // Inputting "quit" will call Application.Quit(), thus exiting the game
         if (Regex.IsMatch(input, "[Qq]uit"))
