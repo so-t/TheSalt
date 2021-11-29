@@ -5,16 +5,39 @@ using static GlobalVariables;
 public class Character : SaltComponent
 {
     // Private Variables
+    private void AddToInventory(Item i)
+    {
+        foreach (var stack in Inventory.Where(stack => i.GetName() == stack.Name))
+        {
+            stack.Items.AddFirst(i);
+            return;
+        }
+        
+        var newStack = new ItemStack(i);
+        Inventory.AddLast(newStack);
+    }
+
+    private Item RemoveFromInventory(ItemStack stack)
+    {
+        var i = stack.Get();
+
+        if (stack.Count() == 0)
+            player.Inventory.Remove(stack);
+
+        return i;
+    }
     
     // Public Variables
     protected Weapon Weapon;
-    public LinkedList<ItemStack> Inventory = new LinkedList<ItemStack>();
+    public readonly LinkedList<ItemStack> Inventory = new LinkedList<ItemStack>();
     
     public override void Awake()
     {
         Weapon = TheSalt.AddComponent<Weapon>();
         Weapon.SetWeaponType(Weapons.UNARMED);
     }
+    
+    public virtual void Move(Directions dir){}
 
     public override void Attack(SaltComponent target)
     {
@@ -38,22 +61,11 @@ public class Character : SaltComponent
         if (GetHealth() <= 0) SetIsAlive(false);
     }
 
-    public void AddToInventory(Item i)
+    public void Take(Item i)
     {
         if (Location.components.Remove(i))
         {
-            var addedToStack = false;
-            foreach (var stack in Inventory.Where(stack => i.GetName() == stack.Name))
-            {
-                stack.Items.AddFirst(i);
-                addedToStack = true;
-            }
-
-            if (!addedToStack)
-            {
-                var stack = new ItemStack(i);
-                Inventory.AddLast(stack);
-            }
+            AddToInventory(i);
             
             GameLog += "You pick up the " + i.GetName() + ".";
             return;
@@ -61,18 +73,19 @@ public class Character : SaltComponent
         GameLog += "You don't see that item here.";
     }
 
-    public bool RemoveFromInventory(Item i)
+    public void Drop(ItemStack stack)
     {
-        foreach (var stack in from stack in Inventory where i.GetName() == stack.Name from item in stack.Items where i == item select stack)
-        {
-            stack.Items.Remove(i);
-            Location.AddSaltComponent(i);
-            if (stack.Items.Count == 0)
-                player.Inventory.Remove(stack);
-            return true;
-        }
+        var i = RemoveFromInventory(stack);
+        
+        Location.components.AddLast(i);
+        GameLog += "You drop the " + i.GetName();
+    }
 
-        return false;
+    public void Use(ItemStack stack)
+    {
+        var i = RemoveFromInventory(stack);
+
+        ((Consumable) i).Use(this);
     }
 
     protected Weapon GetWeapon()
@@ -80,13 +93,17 @@ public class Character : SaltComponent
         return Weapon;
     }
 
-    public void Equip(Item i)
+    public void Equip(ItemStack stack)
     {
-        if (i.GetType() == typeof(Weapon))
-        {
-            Weapon = (Weapon) i;
-            GameLog += "You equip the " + i.GetName() + ".";
-        }
+        if (stack.Items.First.Value.GetType() != typeof(Weapon)) return;
+        
+        if (Weapon.GetName() != "Unarmed")
+            AddToInventory(Weapon);
+            
+        Weapon = (Weapon) stack.Get();
+        if (stack.Count() == 0)
+            Inventory.Remove(stack);
+        GameLog += "You equip the " + Weapon.GetName() + ".";
     }
 
     public override void Update() {}

@@ -102,11 +102,6 @@ public class SaltComponent : MonoBehaviour
                 }
         }
 
-        public void Use(Consumable c)
-        {
-                c.Use(this);
-        }
-
         protected void SetPronouns(PronounSet pronouns)
         {
                 _pronounSet = pronouns;

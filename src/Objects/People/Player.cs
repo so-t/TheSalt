@@ -6,24 +6,18 @@ public class Player : Character
         // Private Variables
         
         // Public Variables
-        public void Move(Directions dir)
+        public override void Move(Directions dir)
         {
                 if(player.GetLocation().HasConnection((int) dir)){
-                        switch (dir)
-                        {
-                                case Directions.DOWN:
-                                        CurrentLevel += 1;
-                                        break;
-                                case Directions.UP:
-                                        CurrentLevel -= 1;
-                                        break;
-                        }
+                        if (dir == Directions.DOWN)
+                                CurrentLevel += 1;
+                        else if (dir == Directions.UP) CurrentLevel -= 1;
 
                         player.SetLocation(player.GetLocation().GetConnection((int) dir));
                         if (!player.GetLocation().GetVisited())
                         {
                                 player.GetLocation().SetVisited(true);
-                                for (int d = (int) Directions.NORTH; d < 4; d++)
+                                for (var d = (int) Directions.NORTH; d < 4; d++)
                                 {
                                         if (player.GetLocation().GetConnection(d) != null && !player.GetLocation().GetConnection(d).GetDiscovered())
                                         {
@@ -41,6 +35,9 @@ public class Player : Character
                                 GameLog += "-";
                         }
                         GameLog += "</color>\n\n" + player.GetLocation().GetDescription();
+                        
+                        DoUpdateMapDisplay = true;
+                        DoUpdateLogDisplay = true;
                 } else {
                         GameLog += "There is no path in that direction!";
                 }

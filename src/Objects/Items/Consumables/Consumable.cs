@@ -3,7 +3,6 @@
     // Private Variables
 
     // Public Variables
-
     public virtual void Use(SaltComponent target) {}
 
 }

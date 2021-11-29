@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Markov;
 using UnityEngine;
 using static GlobalVariables;
 
@@ -11,66 +10,7 @@ public class NPC : Character
     private bool _hasTattoo, _hasGear;
     private float _timeOfLastAction;
     private const float MinTimeTimeBetweenActions = 30.0f;
-
-    private void MoveNPC()
-    {
-        List<int> connections = new List<int>();
-        for (var dir = (int) Directions.NORTH; dir < 4; dir++)
-        {
-            if (Location.HasConnection(dir)) connections.Add(dir);
-        }
-
-        int direction = connections[Rand.Next(connections.Count)];
-
-        if (Location == player.GetLocation())
-        {
-            Location.components.Remove(this);
-            Location = Location.GetConnection(direction);
-            Location.components.AddFirst(this);
-            GameLog += "\n<color=#292b30>" + GetName() + " heads ";
-            switch (direction)
-            {
-                case (int) Directions.NORTH:
-                    GameLog += "north.\n";
-                    break;
-                case (int) Directions.SOUTH:
-                    GameLog += "south.\n";
-                    break;
-                case (int) Directions.EAST:
-                    GameLog += "east.\n";
-                    break;
-                case (int) Directions.WEST:
-                    GameLog += "west.\n";
-                    break;
-            }
-            GameLog += "</color>";
-        } 
-        else if (Location.GetConnection(direction) == player.GetLocation())
-        {
-            Location.components.Remove(this);
-            Location = Location.GetConnection(direction);
-            Location.components.AddFirst(this);
-            GameLog += "\n<color=#292b30>" + GetName() + " arrives from the ";
-            switch (direction)
-            {
-                case (int) Directions.NORTH:
-                    GameLog += "south.\n";
-                    break;
-                case (int) Directions.SOUTH:
-                    GameLog += "north.\n";
-                    break;
-                case (int) Directions.EAST:
-                    GameLog += "west.\n";
-                    break;
-                case (int) Directions.WEST:
-                    GameLog += "east.\n";
-                    break;
-            }
-            GameLog += "</color>";
-        }
-    }
     
-    // TODO Fix: Currently if an object/NPC spawns in the starting room it will not return the correct description for the intro room message
     // Public Variables
     public override void Awake()
     {
@@ -133,9 +73,59 @@ public class NPC : Character
         SetDescription(description);
     }
 
+    public override void Move(Directions dir)
+    {
+        if (Location == player.GetLocation())
+        {
+            Location.components.Remove(this);
+            Location = Location.GetConnection((int) dir);
+            Location.components.AddFirst(this);
+            GameLog += "\n<color=#292b30>" + GetName() + " heads ";
+            switch (dir)
+            {
+                case Directions.NORTH:
+                    GameLog += "north.\n";
+                    break;
+                case Directions.SOUTH:
+                    GameLog += "south.\n";
+                    break;
+                case Directions.EAST:
+                    GameLog += "east.\n";
+                    break;
+                case Directions.WEST:
+                    GameLog += "west.\n";
+                    break;
+            }
+            GameLog += "</color>";
+        } 
+        else if (Location.GetConnection((int) dir) == player.GetLocation())
+        {
+            Location.components.Remove(this);
+            Location = Location.GetConnection((int) dir);
+            Location.components.AddFirst(this);
+            GameLog += "\n<color=#292b30>" + GetName() + " arrives from the ";
+            switch (dir)
+            {
+                case Directions.NORTH:
+                    GameLog += "south.\n";
+                    break;
+                case Directions.SOUTH:
+                    GameLog += "north.\n";
+                    break;
+                case Directions.EAST:
+                    GameLog += "west.\n";
+                    break;
+                case Directions.WEST:
+                    GameLog += "east.\n";
+                    break;
+            }
+            GameLog += "</color>";
+        }
+    }
+
     public override void Attack(SaltComponent target)
     {
-        int damage = Rand.Next(1, GetWeapon().GetDamage());
+        var damage = Rand.Next(1, GetWeapon().GetDamage());
         target.Defend(damage);
         if(target == player)
             GameLog += "\n" + GetName() + " attacks you for " + damage + " points of damage!";
@@ -145,6 +135,15 @@ public class NPC : Character
     {
         if (!GetIsAlive() || !(_timeOfLastAction + MinTimeTimeBetweenActions < Time.time)) return;
         _timeOfLastAction = Time.time;
-        MoveNPC();
+        
+        var connections = new List<int>();
+        for (var dir = (int) Directions.NORTH; dir < 4; dir++)
+        {
+            if (Location.HasConnection(dir)) connections.Add(dir);
+        }
+
+        var direction = connections[Rand.Next(connections.Count)];
+        
+        Move((Directions) direction);
     }
 }
