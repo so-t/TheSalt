@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using UnityEngine;
 using static GlobalVariables;
 
 public class Player : Character
@@ -48,6 +49,27 @@ public class Player : Character
                 GameLog += Location.GetDescription();
         }
 
+        public override void StartAttacking(SaltComponent target)
+        {
+                if (!target.IsAlive())
+                        GameLog += target.GetName() + " is already dead.";
+                else 
+                        base.StartAttacking(target);
+        }
+
+        public override void Attack(SaltComponent target)
+        {
+                TimeOfLastAction = Time.time;
+                
+                var damage = Rand.Next(1, GetWeapon().GetDamage());
+                target.Defend(damage);
+                GameLog += "You attack " + target.GetName() + " for " + damage + " points of damage" + 
+                           (target.IsAlive() ? "!" : ", finishing " + target.GetThirdPersonObjective() + "!");
+                
+                if (!target.IsAlive())
+                        StopAttacking();
+        }
+
         public void Look(string s)
         {
                 if (s == "inventory")
@@ -79,5 +101,14 @@ public class Player : Character
                 }
                 
                 GameLog += "You don't see that here.";
+        }
+
+        public override void Update()
+        {
+                if (IsAlive() && IsAttacking() && TimeOfLastAction + MinTimeTimeBetweenActions < Time.time)
+                {
+                        GameLog += "\n";
+                        Attack(Target);
+                }
         }
 }

@@ -34,7 +34,7 @@ public class Poison : Status
     {
         if (ShouldBeRemoved())
         {
-            Target.RemoveStatus(this.GetType());
+            Target.RemoveStatus(GetType());
             Destroy(this);
         }
         

@@ -2,26 +2,53 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static GlobalVariables;
 
 public class SaltComponent : MonoBehaviour
 {
         // Private variables
         private string _name, _description;
         private int _health, _maxHealth;
-        private bool _isALive;
+        private bool _isALive, _isAttacking;
         private PronounSet _pronounSet = new PronounSet((int) Genders.NEUTER);
         private readonly LinkedList<Status> _status = new LinkedList<Status>();
         
         // Public variables
         protected Room Location;
+        protected SaltComponent Target;
+        protected float TimeOfLastAction;
+        protected const float MinTimeTimeBetweenActions = 5.0f;
 
         protected void SetName(string s)
         {
                 _name = s;
         }
         
-        public virtual void Awake() {}
+        public virtual void Awake() {
+        }
+        
+        public bool IsAttacking()
+        {
+                return _isAttacking;
+        }
 
+        protected void SetIsAttacking(bool b)
+        {
+                _isAttacking = b;
+        }
+
+        public virtual void StartAttacking(SaltComponent target)
+        {
+                Target = target;
+                SetIsAttacking(true);
+        }
+
+        protected void StopAttacking()
+        {
+                Target = null;
+                SetIsAttacking(false);
+        }
+        
         public string GetName()
         {
                 return _name;
@@ -76,7 +103,7 @@ public class SaltComponent : MonoBehaviour
                 _isALive = isAlive;
         }
 
-        public bool GetIsAlive()
+        public bool IsAlive()
         {
                 return _isALive;
         }

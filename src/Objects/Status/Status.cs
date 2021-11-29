@@ -5,7 +5,6 @@
     
 
     //Public variables
-    protected SaltComponent Target;
     protected bool Initialized = false;
     
     public virtual bool ShouldBeRemoved()

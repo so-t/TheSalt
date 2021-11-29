@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using static GlobalVariables;
 
 public class Character : SaltComponent
@@ -33,26 +34,23 @@ public class Character : SaltComponent
     
     public override void Awake()
     {
+        SetHealth(10);
+        SetIsAlive(true);
+        TimeOfLastAction = Time.time;
         Weapon = TheSalt.AddComponent<Weapon>();
         Weapon.SetWeaponType(Weapons.UNARMED);
     }
     
     public virtual void Move(Directions dir){}
 
-    public override void Attack(SaltComponent target)
+    public override void StartAttacking(SaltComponent target)
     {
-        if (!target.GetIsAlive())
-        {
-            GameLog += target.GetName() + " is already dead.";
-        }
-        else
-        {
-            int damage = Rand.Next(1, GetWeapon().GetDamage());
-            target.Defend(damage);
-            GameLog += "You attack " + target.GetName() + " for " + damage + " points of damage" +
-                   (target.GetIsAlive() ? "!" : ", finishing " + target.GetThirdPersonObjective() + "!");
-        }
-        
+        Target = target;
+        TimeOfLastAction = Time.time;
+        SetIsAttacking(true);
+        Attack(target);
+        if (!target.IsAttacking())
+            target.StartAttacking(this);
     }
 
     public override void Defend(int damage)
@@ -105,6 +103,4 @@ public class Character : SaltComponent
             Inventory.Remove(stack);
         GameLog += "You equip the " + Weapon.GetName() + ".";
     }
-
-    public override void Update() {}
 }

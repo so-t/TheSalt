@@ -8,15 +8,12 @@ public class NPC : Character
     // Private Variables
     private int _origin, _gender, _gearLocation, _tattooLocation, _gear;
     private bool _hasTattoo, _hasGear;
-    private float _timeOfLastAction;
-    private const float MinTimeTimeBetweenActions = 30.0f;
     
     // Public Variables
     public override void Awake()
     {
         base.Awake();
-        _timeOfLastAction = Rand.Next(0, 21) + Time.time;
-        _origin = Rand.Next(0, (int) Arrays.ORIGIN_ARRAY_LENGTH);
+        TimeOfLastAction = Rand.Next(0, 21) + Time.time;
         
         /* Begin Markov Chain for Name Creation */
         char[] n;
@@ -28,10 +25,9 @@ public class NPC : Character
         SetName(new string(n));
         /* End Name Generation */
         
+        _origin = Rand.Next(0, (int) Arrays.ORIGIN_ARRAY_LENGTH);
         _gender = Rand.Next(0, (int) Arrays.GENDER_TYPES);
         SetPronouns(new PronounSet(_gender));
-        SetHealth(10);
-        SetIsAlive(true);
         
         _hasTattoo = Rand.Next(0, 101) <= 35;
         if (_hasTattoo) _tattooLocation = Rand.Next(0, (int) Arrays.TATTOO_LOCATION_ARRAY_LENGTH);
@@ -125,25 +121,35 @@ public class NPC : Character
 
     public override void Attack(SaltComponent target)
     {
+        TimeOfLastAction = Time.time;
+        
         var damage = Rand.Next(1, GetWeapon().GetDamage());
         target.Defend(damage);
         if(target == player)
             GameLog += "\n" + GetName() + " attacks you for " + damage + " points of damage!";
+            
+        if (!target.IsAlive())
+            StopAttacking();
     }
     
     public override void Update()
     {
-        if (!GetIsAlive() || !(_timeOfLastAction + MinTimeTimeBetweenActions < Time.time)) return;
-        _timeOfLastAction = Time.time;
-        
-        var connections = new List<int>();
-        for (var dir = (int) Directions.NORTH; dir < 4; dir++)
+        if (IsAlive() && IsAttacking() && TimeOfLastAction + MinTimeTimeBetweenActions < Time.time)
         {
-            if (Location.HasConnection(dir)) connections.Add(dir);
+            Attack(Target);
         }
-
-        var direction = connections[Rand.Next(connections.Count)];
         
-        Move((Directions) direction);
+        // else
+        // {
+        //     var connections = new List<int>();
+        //     for (var dir = (int) Directions.NORTH; dir < 4; dir++)
+        //     {
+        //         if (Location.HasConnection(dir)) connections.Add(dir);
+        //     }
+        //
+        //     var direction = connections[Rand.Next(connections.Count)];
+        //
+        //     Move((Directions) direction);
+        // }
     }
 }

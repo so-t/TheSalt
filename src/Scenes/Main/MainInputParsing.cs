@@ -78,21 +78,15 @@ public class MainInputParsing : MonoBehaviour
             {
                 // Make a copy of the user-entered target and set to lowercase
                 var target = input.Split(' ').Last().ToLower();
-                var hasAttacked = false;
                 
                 // For each NPC in the room, we check if the name, set to lowercase, matches the input target.
                 foreach (var obj in player.GetLocation().components.Where(obj => obj.GetName().ToLower() == target))
                 {
-                    hasAttacked = true;
-                    player.Attack(obj);
-                    if (obj.GetIsAlive())
-                    {
-                        obj.Attack(player);
-                    }
-                    break;
+                    player.StartAttacking(obj);
+                    return;
                 }
                 
-                if(!hasAttacked) GameLog += "You don't see that here.";
+                GameLog += "You don't see that here.";
             }
         }
         
@@ -236,6 +230,7 @@ public class MainInputParsing : MonoBehaviour
             }
 
             inputField.SetTextWithoutNotify(command.Value);
+            inputField.MoveTextEnd(false);
         }
         else if (Input.GetKeyDown("down"))
         {
@@ -252,6 +247,7 @@ public class MainInputParsing : MonoBehaviour
             }
 
             inputField.SetTextWithoutNotify(command.Value);
+            inputField.MoveTextEnd(false);
         }
     }
 }
