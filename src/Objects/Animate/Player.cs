@@ -61,7 +61,7 @@ public class Player : Character
         {
                 TimeOfLastAction = Time.time;
                 
-                var damage = Rand.Next(1, GetWeapon().GetDamage());
+                var damage = Rand.Next(1, 6) + GetWeapon().GetDamage();
                 target.Defend(damage);
                 GameLog += "You attack " + target.GetName() + " for " + damage + " points of damage" + 
                            (target.IsAlive() ? "!" : ", finishing " + target.GetThirdPersonObjective() + "!");

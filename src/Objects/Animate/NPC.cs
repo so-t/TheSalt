@@ -123,7 +123,7 @@ public class NPC : Character
     {
         TimeOfLastAction = Time.time;
         
-        var damage = Rand.Next(1, GetWeapon().GetDamage());
+        var damage = Rand.Next(1, 6) + GetWeapon().GetDamage();
         target.Defend(damage);
         if(target == player)
             GameLog += "\n" + GetName() + " attacks you for " + damage + " points of damage!";

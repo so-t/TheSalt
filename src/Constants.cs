@@ -1,4 +1,10 @@
-﻿// ReSharper disable InconsistentNaming
+﻿public enum Armors
+{
+}
+
+public enum ArmorClass
+{
+}
 
 public enum Origins
 {
@@ -30,20 +36,26 @@ public enum EquipmentSlots
 
 public enum Weapons 
 {
+    UNARMED,
+    
+    // Tier 0
     QUARTERSTAFF,
     SOLDIERS_SPEAR,
+    TWIN_BLADES,
     WOODCUTTING_AXE,
     BLACKSMITHS_HAMMER,
-    UNARMED
-}
-
-public enum WeaponDamages
-{
-    QUARTERSTAFF = 3,
-    SOLDIERS_SPEAR = 8,
-    BLACKSMITHS_HAMMER = 3,
-    WOODCUTTING_AXE = 6,
-    UNARMED = 3
+    RAPIER,
+    SCIMITAR,
+    
+    // Tier 1
+    STONE_CLAYMORE,
+    HOOKED_SPEAR,
+    ADVENTURERS_SWORD,
+    MORNING_STAR,
+    
+    // Tier 2
+    FINE_BROADSWORD,
+    DISC
 }
 
 public enum Maps

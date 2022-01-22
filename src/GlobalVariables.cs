@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Markov;
 using UnityEngine;
 using Random = System.Random;
@@ -42,6 +44,145 @@ public static class GlobalVariables
         "small tree",
         "bottle, with liquid sloshing loudly inside,",
         "orb"
+    };
+
+
+    public static readonly Dictionary<Weapons, Dictionary<string, int>> WeaponStats = new Dictionary<Weapons, Dictionary<string, int>>()
+    {
+        {Weapons.UNARMED, new Dictionary<string, int>() {
+            {"damage", 0},
+            {"defense", 0},
+        }},
+        
+        // Tier 0
+        {Weapons.QUARTERSTAFF, new Dictionary<string, int>() {
+            {"damage", 0},
+            {"defense", 0}
+        }},
+        {Weapons.SOLDIERS_SPEAR,  new Dictionary<string, int>() {
+            {"damage", 0},
+            {"defense", 0}
+        }},
+        {Weapons.TWIN_BLADES,  new Dictionary<string, int>() {
+            {"damage", 0},
+            {"defense", 0}
+        }},
+        {Weapons.WOODCUTTING_AXE,  new Dictionary<string, int>() {
+            {"damage", 0},
+            {"defense", 0}
+        }},
+        {Weapons.BLACKSMITHS_HAMMER,  new Dictionary<string, int>() {
+            {"damage", 0},
+            {"defense", 0}
+        }},
+        {Weapons.RAPIER,  new Dictionary<string, int>() {
+            {"damage", 0},
+            {"defense", 0}
+        }},
+        {Weapons.SCIMITAR,  new Dictionary<string, int>() {
+            {"damage", 0},
+            {"defense", 0}
+        }},
+        
+        // Tier 1
+        {Weapons.STONE_CLAYMORE,  new Dictionary<string, int>() {
+            {"damage", 1},
+            {"defense", 0}
+        }},
+        {Weapons.HOOKED_SPEAR,  new Dictionary<string, int>() {
+            {"damage", 1},
+            {"defense", 0}
+        }},
+        {Weapons.ADVENTURERS_SWORD,  new Dictionary<string, int>() {
+            {"damage", 1},
+            {"defense", 0}
+        }},
+        {Weapons.MORNING_STAR,  new Dictionary<string, int>() {
+            {"damage", 1},
+            {"defense", 0}
+        }},
+
+        // Tier 2
+        {Weapons.FINE_BROADSWORD,  new Dictionary<string, int>() {
+            {"damage", 2},
+            {"defense", 0}
+        }},
+        {Weapons.DISC,  new Dictionary<string, int>() {
+            {"damage", 1},
+            {"defense", 1}
+        }}
+    };
+
+
+    public static readonly Dictionary<Weapons, Dictionary<string, string>> WeaponDetails = new Dictionary<Weapons, Dictionary<string, string>>()
+    {
+        {Weapons.UNARMED, new Dictionary<string, string>{
+            {"name", "Unarmed"},
+            {"description", "Bare fists."}
+        }},
+        
+        // Tier 0
+        {Weapons.QUARTERSTAFF, new Dictionary<string, string>{
+                {"name", "Quarterstaff"},
+                {"description", "The staff is not unlike the staves of apprentice mages or weatherweavers. Serves as a fine club." }
+            }
+        },
+        {Weapons.SOLDIERS_SPEAR, new Dictionary<string, string>{
+            {"name", "Soldier's Spear"},
+            {"description", "Standard issue spear with an iron point, modified to have a shorter hilt."}
+        }},
+        {Weapons.TWIN_BLADES, new Dictionary<string, string>{
+            {"name", "Twin Blades"},
+            {"description", "Fitting weapons for a common thief."}
+        }},
+        {Weapons.WOODCUTTING_AXE, new Dictionary<string, string>{
+            {"name", "Woodcutting Axe"},
+            {"description", "A well-crafted tool, recently sharpened."}
+        }},
+        {Weapons.BLACKSMITHS_HAMMER, new Dictionary<string, string>{
+                    {"name", "Blacksmith's Hammer"},
+                    {"description", 
+                        "The hammer shows signs of heavy use. The initials " +
+                        ((char) (Rand.Next(1, 26) + 64) + "." + (char) (Rand.Next(1, 26) + 64) + "." +
+                         (char) (Rand.Next(1, 26) + 64)).ToUpper() + " are carved into the wooden handle."}
+                }
+        },
+        {Weapons.RAPIER, new Dictionary<string, string>{
+            {"name", "Rapier"},
+            {"description", "A plain, but dignified, weapon. It has a fine sheath."}
+        }},
+        {Weapons.SCIMITAR, new Dictionary<string, string>{
+            {"name", "Scimitar"},
+            {"description", "A small, curved sword. Wielded with a flourish."}
+        }},
+
+        // Tier 1
+        {Weapons.STONE_CLAYMORE, new Dictionary<string, string>{
+            {"name", "Stone Claymore"},
+            {"description", "A large, heavy sword made of dark stone. The pattern inscribed on the blade is worn down beyond recognition."}
+        }},
+        {Weapons.HOOKED_SPEAR, new Dictionary<string, string>{
+            {"name", "Hooked Spear"},
+            {"description", "Though the sea has receded for summer, a few small lakes remain in The Salt. The inhabitants are strange, but nutritious."}
+        }},
+        {Weapons.ADVENTURERS_SWORD, new Dictionary<string, string>{
+            {"name", "Adventurer's Sword"},
+            {"description", "The abandoned blade of some adventurer from before. It is starting to dull, but the barnacles give it a rough edge."}
+        }},
+        {Weapons.MORNING_STAR, new Dictionary<string, string>{
+            {"name", "Morning Star"},
+            {"description", "It has a hardwood handle. The head is a spiked steel ball, made to look like the smaller of Peria's suns."}
+        }},
+        
+        // Tier 2
+        {Weapons.FINE_BROADSWORD, new Dictionary<string, string>{
+            {"name", "Fine Broadsword"},
+            {"description", "The Knights-Errant of Olondi use swords like this when hunting the lesser wyrms of the riverlands."}
+        }},
+        {Weapons.DISC, new Dictionary<string, string>{
+            {"name", "Disc"},
+            {"description", "A hollow metal disc, paired to a beacon. Returns when thrown, allowing for high mobility."}
+        }}
     };
 
     public static readonly string[] ItemLocations = {
